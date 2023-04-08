@@ -4,14 +4,21 @@
 
 **프로젝트 기간 : 2022.05.23~**
 
+> 도서에 관심이 많은 유저들이 도서와 도서 문장에 대해서
+> 공유, 기록할 수 있는 서비스입니다.
 
 
+<br>
 
-## :sparkles: ERD
+## :page_facing_up: 기술 스택  
 
-
-
-
+`spring boot 2.7`, `Java 8`  
+`Mysql 8.0`,`Spring Data JPA`  
+`Jenkins`, `Github action`  
+`Docker`, `Docker hub`   
+`Feign Client`  
+`AWS EC2`,`AWS S3`,`AWS RDS`  
+`Redis`
 
 
 ## :mag: Architecture
