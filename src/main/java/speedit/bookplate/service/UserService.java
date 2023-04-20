@@ -11,8 +11,7 @@ import speedit.bookplate.exception.SameUserException;
 import speedit.bookplate.exception.WrongIdOrPasswordException;
 import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.utils.JwtService;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import static speedit.bookplate.domain.User.*;
 
@@ -25,12 +24,11 @@ public class UserService {
     private final UserRepository userRepository;
 
     public CommonResponseDto SignUp(UserCreateRequestDto userCreateRequestDto){
-        User userReq = SignUpUser(userCreateRequestDto);
 
         if(userRepository.existsByNicknameAndBirthAndJob(userCreateRequestDto.getNickname(), userCreateRequestDto.getBirth(), userCreateRequestDto.getJob()))
             throw new SameUserException();
 
-        userRepository.save(userReq);
+        userRepository.save(SignUpUser(userCreateRequestDto));
 
         return new CommonResponseDto();
     }
@@ -64,7 +62,9 @@ public class UserService {
     }
 
     public void deleteUser(long userIdx){
-        userRepository.delete(findUser(userIdx));
+        User user = userRepository.findById(userIdx)
+                .orElseThrow(()-> new NotExistUserException());
+        user.deleteUser();
     }
 
     public void modifyProfile(long userIdx){

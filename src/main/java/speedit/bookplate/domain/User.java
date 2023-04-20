@@ -75,6 +75,10 @@ public class User extends BaseTimeEntity {
         this.followerCount-=1;
     }
 
+    public void deleteUser(){
+        this.status = UserStatus.INACTIVE;
+    }
+
     public void update(final User user){
         updateNickname(user.nickname);
         updateProfileImg(user.profileImg);
@@ -115,7 +119,7 @@ public class User extends BaseTimeEntity {
     }
 
     private void updateEmailCertified(final boolean isEmailCertified){
-        this.isEmailCertified=isEmailCertified;
+        this.isEmailCertified = isEmailCertified;
     }
 
     public static User SignUpUser(UserCreateRequestDto userCreateRequestDto){
