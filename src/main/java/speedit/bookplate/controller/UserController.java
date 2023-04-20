@@ -77,11 +77,11 @@ public class UserController {
 
 
     @RequestMapping(value = "",method = RequestMethod.PATCH)
-    public ResponseEntity<CommonResponseDto> modifyProfile() {
+    public ResponseEntity<CommonResponseDto> modifyProfile(@RequestBody UserRequestDto userRequestDto) {
         jwtService.isExpireAccessToken();
         long userIdx = jwtService.getUserIdx();
 
-        userService.modifyProfile(userIdx);
+        userService.modifyProfile(userIdx,userRequestDto);
 
         return ResponseEntity.ok().body(new CommonResponseDto());
     }

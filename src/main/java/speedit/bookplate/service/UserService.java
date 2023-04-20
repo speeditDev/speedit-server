@@ -13,7 +13,6 @@ import speedit.bookplate.exception.WrongIdOrPasswordException;
 import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.utils.JwtService;
 
-
 import static speedit.bookplate.domain.User.*;
 
 @Service
@@ -69,9 +68,9 @@ public class UserService {
         user.isDelete();
     }
 
-    public void modifyProfile(long userIdx){
+    public void modifyProfile(long userIdx,UserRequestDto userRequestDto){
         User user = findUser(userIdx);
-        user.update(user);
+        user.update(userRequestDto.toUser());
     }
 
     public UserProfileResponseDto getUserProfile(long userIdx){
