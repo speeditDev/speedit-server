@@ -34,7 +34,7 @@ public class UserService {
     }
 
     public UserLoginResponseDto login(UserLoginRequestDto userLoginRequestDto){
-        User loginUser = userRepository.findByNickname(userLoginRequestDto.getNickname())
+        User loginUser = userRepository.findByNicknameAndPassword(userLoginRequestDto.getNickname(),userLoginRequestDto.getPassword())
                 .orElseThrow(()->new WrongIdOrPasswordException());
 
         Long userIdx = loginUser.getId();
