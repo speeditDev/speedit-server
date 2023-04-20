@@ -5,7 +5,7 @@ import lombok.*;
 import speedit.bookplate.config.BaseTimeEntity;
 import speedit.bookplate.dto.feed.FeedResponseDto;
 import speedit.bookplate.dto.user.UserCreateRequestDto;
-import speedit.bookplate.dto.user.UserProfileResponse;
+import speedit.bookplate.dto.user.UserProfileResponseDto;
 import speedit.bookplate.utils.enumTypes.Gender;
 import speedit.bookplate.utils.enumTypes.UserStatus;
 
@@ -139,8 +139,8 @@ public class User extends BaseTimeEntity {
                 .build();
     }
 
-    public static UserProfileResponse converUserProfile(User user){
-        return UserProfileResponse.builder()
+    public static UserProfileResponseDto converUserProfile(User user){
+        return UserProfileResponseDto.builder()
                 .profileImg(user.profileImg)
                 .nickname(user.nickname)
                 .birth(user.birth)

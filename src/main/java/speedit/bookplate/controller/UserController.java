@@ -59,9 +59,9 @@ public class UserController {
 
 
     @RequestMapping(value = "/profiles",method = RequestMethod.GET)
-    public ResponseEntity<UserProfileResponse> getUserProfile(){
-            jwtService.isExpireAccessToken();
-            return ResponseEntity.ok().body(userService.getUserProfile(jwtService.getUserIdx()));
+    public ResponseEntity<UserProfileResponseDto> getUserProfile(){
+        jwtService.isExpireAccessToken();
+        return ResponseEntity.ok().body(userService.getUserProfile(jwtService.getUserIdx()));
     }
 
 

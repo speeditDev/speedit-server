@@ -74,7 +74,7 @@ public class UserService {
         user.update(user);
     }
 
-    public UserProfileResponse getUserProfile(long userIdx){
+    public UserProfileResponseDto getUserProfile(long userIdx){
         return converUserProfile(findUser(userIdx));
     }
 

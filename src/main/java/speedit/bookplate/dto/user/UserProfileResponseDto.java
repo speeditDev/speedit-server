@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserProfileResponse {
+public class UserProfileResponseDto {
 
     private String nickname;
 
@@ -30,8 +30,6 @@ public class UserProfileResponse {
     private boolean isEmailCertified;
 
     private String introduction;
-
-    private boolean alarmAgree;
 
     private List<FeedResponseDto> feeds;
 }
