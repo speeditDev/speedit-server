@@ -19,6 +19,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("존재하지 않는 비밀번호 혹은 아이디입니다.",HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(WrongEmailOrBirthException.class)
+    public ResponseEntity<String> handleWrongEmailOrBirthException(){
+        return new ResponseEntity<>("존재하지 않는 이메일 혹은 생년월일입니다.",HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(ExpireTokenException.class)
     public ResponseEntity<String> handleExpireTokenException(){
         return new ResponseEntity<>("유효하지 않는 토큰입니다.",HttpStatus.FORBIDDEN);

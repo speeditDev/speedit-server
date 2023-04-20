@@ -8,6 +8,7 @@ import speedit.bookplate.dto.user.*;
 import speedit.bookplate.domain.User;
 import speedit.bookplate.exception.NotExistUserException;
 import speedit.bookplate.exception.SameUserException;
+import speedit.bookplate.exception.WrongEmailOrBirthException;
 import speedit.bookplate.exception.WrongIdOrPasswordException;
 import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.utils.JwtService;
@@ -57,7 +58,8 @@ public class UserService {
     }
 
     public UserIdResponseDto findUserId(UserIdRequestDto userIdRequestDto){
-        User user = userRepository.findByPersonalEmailAndBirth(userIdRequestDto.getEmail(), userIdRequestDto.getBirth());
+        User user = userRepository.findByPersonalEmailAndBirth(userIdRequestDto.getEmail(), userIdRequestDto.getBirth())
+                .orElseThrow(()-> new WrongEmailOrBirthException());
         return new UserIdResponseDto(user.getNickname(),user.getCreatedAt());
     }
 
