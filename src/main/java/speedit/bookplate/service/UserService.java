@@ -64,7 +64,7 @@ public class UserService {
     public void deleteUser(long userIdx){
         User user = userRepository.findById(userIdx)
                 .orElseThrow(()-> new NotExistUserException());
-        user.deleteUser();
+        user.isDelete();
     }
 
     public void modifyProfile(long userIdx){

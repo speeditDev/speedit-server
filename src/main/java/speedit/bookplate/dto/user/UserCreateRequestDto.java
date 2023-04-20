@@ -1,12 +1,10 @@
 package speedit.bookplate.dto.user;
 
 import io.swagger.annotations.ApiParam;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import speedit.bookplate.utils.enumTypes.Gender;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -17,21 +15,25 @@ import javax.validation.constraints.Pattern;
 @Builder
 public class UserCreateRequestDto {
 
-    @ApiParam(value = "회원 닉네임",required = true, example = "speedit")
+    @NonNull
+    @NotBlank(message = "아이디는 필수 입력사항 입니다.")
     private String nickname;
 
+    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,12}",
+            message = "비밀번호는 영문 대,소문자와 숫자, 특수기호가 적어도 1개 이상씩 포함된 8자 ~ 12자의 비밀번호여야 합니다.")
     private String password;
 
-    @ApiParam(value = "회원 프로필 사진",required = true, example = "speedit")
     private String profileImg;
 
-    @NotNull(message = "생년월일을 입력해주세요")
+    @NonNull
+    @NotBlank(message = "생년월일은 필수 입력사항 입니다.")
     private String birth;
 
-    @NotNull(message = "성별을 입력해주세요")
+    @NonNull
     private Gender gender;
 
-    @NotEmpty(message = "직업을 입력해주세요")
+    @NonNull
+    @NotBlank(message = "직업은 필수 입력사항 입니다.")
     private String job;
 
     private String company;

@@ -75,7 +75,7 @@ public class User extends BaseTimeEntity {
         this.followerCount-=1;
     }
 
-    public void deleteUser(){
+    public void isDelete(){
         this.status = UserStatus.INACTIVE;
     }
 

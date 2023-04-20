@@ -12,6 +12,8 @@ import speedit.bookplate.exception.ExpireTokenException;
 import speedit.bookplate.service.UserService;
 import speedit.bookplate.utils.JwtService;
 
+import javax.validation.Valid;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -21,12 +23,12 @@ public class UserController {
     private final JwtService jwtService;
 
     @RequestMapping(value = "/sign-up",method = RequestMethod.POST)
-    public ResponseEntity<CommonResponseDto> SingUp(@RequestBody UserCreateRequestDto userCreateRequestDto) {
+    public ResponseEntity<CommonResponseDto> SingUp(@Valid @RequestBody UserCreateRequestDto userCreateRequestDto) {
         return ResponseEntity.ok().body(userService.SignUp(userCreateRequestDto));
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public ResponseEntity<UserLoginResponseDto> login(@RequestBody UserLoginRequestDto userLoginRequestDto){
+    public ResponseEntity<UserLoginResponseDto> login(@Valid @RequestBody UserLoginRequestDto userLoginRequestDto){
         return ResponseEntity.ok().body(userService.login(userLoginRequestDto));
     }
 
