@@ -3,7 +3,6 @@ package speedit.bookplate.domain;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import speedit.bookplate.config.BaseTimeEntity;
-import speedit.bookplate.dto.feed.FeedResponseDto;
 import speedit.bookplate.dto.user.UserCreateRequest;
 import speedit.bookplate.utils.enumTypes.Gender;
 import speedit.bookplate.utils.enumTypes.UserStatus;
@@ -11,7 +10,6 @@ import speedit.bookplate.utils.enumTypes.UserStatus;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -122,7 +120,6 @@ public class User extends BaseTimeEntity {
     }
 
     public static User SignUpUser(UserCreateRequest userCreateRequest){
-
         return User.builder()
                 .birth(userCreateRequest.getBirth())
                 .profileImg(userCreateRequest.getProfileImg())
@@ -136,12 +133,6 @@ public class User extends BaseTimeEntity {
                 .password(userCreateRequest.getPassword())
                 .isEmailCertified(false)
                 .build();
-    }
-
-    private static List<FeedResponseDto> convertToFeedRes(List<Feed> feed){
-        return feed.stream()
-                .map(it -> FeedResponseDto.SearchFeedResDtoToEntity(it))
-                .collect(Collectors.toList());
     }
 
     public void setRefreshToken(String refreshToken){

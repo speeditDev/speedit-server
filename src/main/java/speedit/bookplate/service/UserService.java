@@ -74,7 +74,8 @@ public class UserService {
     }
 
     public UserProfileResponse getUserProfile(long userIdx){
-        return converUserProfile(findUser(userIdx));
+        User user = findUser(userIdx);
+        return UserProfileResponse.from(user);
     }
 
     private User findUser(final Long userId){

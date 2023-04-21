@@ -31,20 +31,17 @@ public class UserProfileResponse {
 
     private String introduction;
 
-    private List<FeedResponseDto> feeds;
-
     public static UserProfileResponse from(final User user){
         return UserProfileResponse.builder()
                 .profileImg(user.getProfileImg())
                 .nickname(user.getNickname())
                 .birth(user.getBirth())
-                .gender(String.valueOf(user.gender))
+                .gender(user.getGender().getGender())
                 .job(user.getJob())
                 .company(user.getCompany())
                 .companyEmail(user.getCompanyEmail())
                 .isEmailCertified(false)
                 .introduction(user.getIntroduction())
-                .feeds(convertToFeedRes(user.feeds))
                 .build();
     }
 }
