@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import speedit.bookplate.config.CommonResponseDto;
-import speedit.bookplate.dto.book.BookDetailResDto;
-import speedit.bookplate.dto.book.GetDetailResDto;
-import speedit.bookplate.dto.book.SearchBookResDto;
-import speedit.bookplate.dto.book.StorageBookReqDto;
+import speedit.bookplate.dto.book.*;
 import speedit.bookplate.service.BookService;
 import speedit.bookplate.utils.JwtService;
 
@@ -50,19 +47,19 @@ public class BookController {
     }
 
     @RequestMapping(value = "/{bookIdx}/likes",method = RequestMethod.POST)
-    public ResponseEntity<CommonResponseDto> likeBook(@PathVariable final Long bookIdx) {
+    public ResponseEntity<BookLikeResponseDto> likeBook(@PathVariable final Long bookIdx) {
         jwtService.isExpireAccessToken();
         long userIdx = jwtService.getUserIdx();
-        bookService.likeBook(userIdx, bookIdx);
-        return ResponseEntity.ok().body(new CommonResponseDto());
+        BookLikeResponseDto bookLikeResponseDto = bookService.likeBook(userIdx, bookIdx);
+        return ResponseEntity.ok().body(bookLikeResponseDto);
     }
 
     @RequestMapping(value = "/{bookIdx}/likes",method = RequestMethod.DELETE)
-    public ResponseEntity<CommonResponseDto> cancelLikeBook(@PathVariable final Long bookIdx) {
+    public ResponseEntity<BookLikeResponseDto> cancelLikeBook(@PathVariable final Long bookIdx) {
         jwtService.isExpireAccessToken();
         long userIdx = jwtService.getUserIdx();
-        bookService.cancelLikeBook(userIdx,bookIdx);
-        return ResponseEntity.ok().body(new CommonResponseDto());
+        BookLikeResponseDto bookLikeResponseDto = bookService.cancelLikeBook(userIdx,bookIdx);
+        return ResponseEntity.ok().body(bookLikeResponseDto);
     }
 
 

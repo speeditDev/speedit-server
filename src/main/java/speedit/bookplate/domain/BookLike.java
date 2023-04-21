@@ -1,12 +1,13 @@
 package speedit.bookplate.domain;
 
-
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import speedit.bookplate.config.BaseTimeEntity;
 
 import javax.persistence.*;
 
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
 public class BookLike extends BaseTimeEntity {
 
@@ -19,7 +20,6 @@ public class BookLike extends BaseTimeEntity {
 
     @Column(name = "book_Id")
     private Long bookId;
-
 
     public BookLike(Long userId, Long bookId) {
         this.userId = userId;
