@@ -11,7 +11,7 @@ import speedit.bookplate.utils.JwtService;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/Book")
+@RequestMapping("/book")
 public class BookController {
 
     private final BookService bookService;

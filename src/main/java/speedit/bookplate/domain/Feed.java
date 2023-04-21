@@ -34,7 +34,7 @@ public class Feed extends BaseTimeEntity {
     private String color2;
 
     @Column(nullable = false)
-    private Integer likeCnt;
+    private Long likes;
 
     private String sort;
 
@@ -45,6 +45,10 @@ public class Feed extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bookId")
     private Book book;
+
+    public void like() {likes = likes +1; }
+
+    public void cancelLike() {likes = likes-1; }
 
     public void updateFeedStatus(){
         this.status=Status.N;

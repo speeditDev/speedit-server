@@ -6,11 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.config.CommonResponseDto;
 import speedit.bookplate.domain.*;
 import speedit.bookplate.dto.feed.*;
-import speedit.bookplate.dto.feedlike.FeedLikeRequsetDto;
-import speedit.bookplate.exception.InvalidLikeBookException;
-import speedit.bookplate.exception.NotExistUserException;
-import speedit.bookplate.exception.NotFoundBookIdxException;
-import speedit.bookplate.exception.NotFoundFeedException;
+import speedit.bookplate.exception.*;
 import speedit.bookplate.repository.*;
 import speedit.bookplate.utils.enumTypes.Code;
 
@@ -91,18 +87,24 @@ public class FeedService {
                 .collect(Collectors.toList());
     }
 
-    public CommonResponseDto likeFeed(Long userIdx, FeedLikeRequsetDto feedLikeRequsetDto) {
-
-        if(feedLikeRepository.existsByFeedIdAndUserId(feedLikeRequsetDto.getFeedIdx(),userIdx)){
+    public CommonResponseDto likeFeed(Long userIdx, Long feedIdx) {
+        final Feed feed = feedRepository.findById(feedIdx)
+                .orElseThrow(()-> new NotFoundFeedException());
+        if(feedLikeRepository.existsByFeedIdAndUserId(feedIdx,userIdx)){
             throw new InvalidLikeBookException();
         }
-
-        feedLikeRepository.save(FeedLike.createLike(userIdx, feedLikeRequsetDto.getFeedIdx()));
+        feed.like();
+        feedLikeRepository.save(new FeedLike(userIdx,feedIdx));
         return new CommonResponseDto();
     }
 
-    public CommonResponseDto cancelLikeFeed(FeedLikeRequsetDto feedLikeRequsetDto) {
-        FeedLike feedLike = feedLikeRepository.findByFeedId(feedLikeRequsetDto.getFeedIdx());
+    public CommonResponseDto cancelLikeFeed(Long userIdx,Long feedIdx) {
+        final Feed feed = feedRepository.findById(feedIdx)
+                .orElseThrow(()-> new NotFoundFeedException());
+        final FeedLike feedLike = feedLikeRepository.findByFeedIdAndUserId(feedIdx,userIdx)
+                .orElseThrow(()->new InvalidCancelLikeBookException());
+        feed.cancelLike();
+        feedLikeRepository.delete(feedLike);
         return new CommonResponseDto();
     }
 

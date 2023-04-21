@@ -5,10 +5,8 @@ import speedit.bookplate.config.BaseTimeEntity;
 
 import javax.persistence.*;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
-@AllArgsConstructor
 @Entity
+@NoArgsConstructor
 public class FeedLike extends BaseTimeEntity {
 
     @Id
@@ -24,12 +22,8 @@ public class FeedLike extends BaseTimeEntity {
     @Version
     private Long version;
 
-    public static FeedLike createLike(Long userId, Long feedId) {
-        return FeedLike.builder()
-                .feedId(feedId)
-                .userId(userId)
-                .build();
+    public FeedLike(Long userId, Long feedId) {
+        this.userId = userId;
+        this.feedId = feedId;
     }
-
-
 }

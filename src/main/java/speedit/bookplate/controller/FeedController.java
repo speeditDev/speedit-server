@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import speedit.bookplate.config.CommonResponseDto;
 import speedit.bookplate.dto.feed.*;
-import speedit.bookplate.dto.feedlike.FeedLikeRequsetDto;
 import speedit.bookplate.exception.NotExistCodeException;
 import speedit.bookplate.service.FeedService;
 import speedit.bookplate.utils.JwtService;
@@ -76,16 +75,16 @@ public class FeedController {
         return ResponseEntity.ok().body(searchFeedRes);
     }
 
-    @RequestMapping(value = "/like",method = RequestMethod.POST)
-    public ResponseEntity<CommonResponseDto> likeFeed(@RequestBody @Valid FeedLikeRequsetDto feedLikeRequsetDto)  {
+    @RequestMapping(value = "/{feedIdx}/likes",method = RequestMethod.POST)
+    public ResponseEntity<CommonResponseDto> likeFeed(@PathVariable final Long feedIdx)  {
         jwtService.isExpireAccessToken();
-        return ResponseEntity.ok().body(feedService.likeFeed(jwtService.getUserIdx(), feedLikeRequsetDto));
+        return ResponseEntity.ok().body(feedService.likeFeed(jwtService.getUserIdx(), feedIdx));
     }
 
-    @RequestMapping(value = "/CancelLikeFeed",method = RequestMethod.PUT)
-    public ResponseEntity<CommonResponseDto> cancelLikeFeed(@RequestBody @Valid FeedLikeRequsetDto feedLikeRequsetDto)  {
+    @RequestMapping(value = "/{feedIdx}/likes",method = RequestMethod.DELETE)
+    public ResponseEntity<CommonResponseDto> cancelLikeFeed(@PathVariable final Long feedIdx)  {
         jwtService.isExpireAccessToken();
-        return ResponseEntity.ok().body(feedService.cancelLikeFeed(feedLikeRequsetDto));
+        return ResponseEntity.ok().body(feedService.cancelLikeFeed(jwtService.getUserIdx(),feedIdx));
     }
 
 }

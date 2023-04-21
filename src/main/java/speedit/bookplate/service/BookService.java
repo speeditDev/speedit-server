@@ -101,5 +101,5 @@ public class BookService {
         bookLikeRepository.delete(bookLike);
         return new BookLikeResponseDto(book.getLikes(),false);
     }
-    
+
 }
