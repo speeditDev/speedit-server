@@ -10,7 +10,7 @@ import speedit.bookplate.exception.NotExistUserException;
 import speedit.bookplate.exception.SameUserException;
 import speedit.bookplate.exception.WrongEmailOrBirthException;
 import speedit.bookplate.exception.WrongIdOrPasswordException;
-import speedit.bookplate.repository.FollowRepository;
+import speedit.bookplate.repository.FollowingRepository;
 import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.utils.JwtService;
 
@@ -23,7 +23,7 @@ public class UserService {
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
-    private final FollowRepository followRepository;
+    private final FollowingRepository followingRepository;
 
     public CommonResponseDto SignUp(UserCreateRequest userCreateRequest){
 
@@ -65,7 +65,7 @@ public class UserService {
     }
 
     private boolean isFollowing(final Long followerId,final Long followingId){
-        return followRepository.existsByFollowerIdAndFollowingId(followerId,followingId);
+        return followingRepository.existsByFollowerIdAndFollowingId(followerId,followingId);
     }
 
     public UserIdResponse findUserId(UserIdRequest userIdRequest){

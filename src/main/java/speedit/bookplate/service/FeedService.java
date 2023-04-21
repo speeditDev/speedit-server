@@ -12,7 +12,7 @@ import speedit.bookplate.repository.BookRepository;
 import speedit.bookplate.domain.Feed;
 import speedit.bookplate.utils.enumTypes.Code;
 import speedit.bookplate.repository.FeedRepository;
-import speedit.bookplate.repository.FollowRepository;
+import speedit.bookplate.repository.FollowingRepository;
 import speedit.bookplate.domain.Following;
 import speedit.bookplate.domain.User;
 import speedit.bookplate.repository.UserRepository;
@@ -30,7 +30,7 @@ public class FeedService {
     private final FeedRepository feedRepository;
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
-    private final FollowRepository followRepository;
+    private final FollowingRepository followingRepository;
 
     public List<Feed> getFeed(Long userIdx,Long bookIdx,Code code,String job){
         User user = userRepository.findById(userIdx)
@@ -57,7 +57,7 @@ public class FeedService {
 
 
     public List<Feed> getFollowingUsers(long followerIdx) {
-        List<Following> a = followRepository.findByFollowingId(followerIdx);
+        List<Following> a = followingRepository.findByFollowingId(followerIdx);
         List<Feed> array = new ArrayList<>();
         /*
         a.stream().map(v->

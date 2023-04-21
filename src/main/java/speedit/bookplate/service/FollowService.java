@@ -7,8 +7,8 @@ import speedit.bookplate.domain.User;
 import speedit.bookplate.exception.AlreadyFollowingException;
 import speedit.bookplate.exception.NotExistUserException;
 import speedit.bookplate.exception.NotFollowingException;
-import speedit.bookplate.repository.FollowRepository;
-import speedit.bookplate.dto.follow.FollowResponseDto;
+import speedit.bookplate.repository.FollowingRepository;
+import speedit.bookplate.dto.follow.ProfileResponse;
 import speedit.bookplate.domain.Following;
 import speedit.bookplate.repository.UserRepository;
 
@@ -18,7 +18,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class FollowService {
 
-    private final FollowRepository followRepository;
+    private final FollowingRepository followingRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -30,7 +30,7 @@ public class FollowService {
                 .followerId(followerId)
                 .followingId(followingId)
                 .build();
-        followRepository.save(following);
+        followingRepository.save(following);
         User user = userRepository.findById(followerId)
                 .orElseThrow(()->new NotExistUserException());
         user.increaseFollowerCnt();
@@ -45,7 +45,7 @@ public class FollowService {
                 .followerId(followerId)
                 .followingId(followingId)
                 .build();
-        followRepository.delete(following);
+        followingRepository.delete(following);
         User user = userRepository.findById(followerId)
                 .orElseThrow(()->new NotExistUserException());
         user.decreaseFollowerCnt();
@@ -58,37 +58,45 @@ public class FollowService {
     }
 
     private void validateNotFollowing(final Long followerId, final Long followingId){
-        if(followRepository.existsByFollowerIdAndFollowingId(followerId,followingId)){
+        if(followingRepository.existsByFollowerIdAndFollowingId(followerId,followingId)){
             throw new AlreadyFollowingException();
         }
     }
 
     private Following findFollowingRelation(final Long followerId,final Long followingId){
-        return followRepository.findByFollowingIdAndAndFollowerId(followingId,followerId)
+        return followingRepository.findByFollowingIdAndAndFollowerId(followingId,followerId)
                 .orElseThrow(()->new NotFollowingException());
     }
 
-    public List<FollowResponseDto> getFollowing(long userIdx){
-        List<Following> follows = followRepository.findByFollowerId(userIdx);
-        List<FollowResponseDto> array = new ArrayList<>();
+    public List<ProfileResponse> getFollowing(long userIdx){
+        List<Following> follows = followingRepository.findByFollowerId(userIdx);
+        List<ProfileResponse> array = new ArrayList<>();
         follows.stream().map(v ->
                 array.add(
-                FollowResponseDto.createFollow(userRepository.findById(v.getFollowingId()).get().getProfileImg(),
+                ProfileResponse.createFollow(userRepository.findById(v.getFollowingId()).get().getId(),
+                        userRepository.findById(v.getFollowingId()).get().getProfileImg(),
                         userRepository.findById(v.getFollowingId()).get().getNickname(),
                         userRepository.findById(v.getFollowingId()).get().getJob(),
-                        userRepository.findById(v.getFollowingId()).get().getCompany())));
+                        userRepository.findById(v.getFollowingId()).get().getCompany(),
+                        userRepository.findById(v.getFollowingId()).get().getFollowerCount(),
+                        false))
+                );
         return array;
     }
 
-    public List<FollowResponseDto> getFollower(long userIdx) {
-        List<Following> follows= followRepository.findByFollowingId(userIdx);
-        List<FollowResponseDto> array = new ArrayList<>();
+    public List<ProfileResponse> getFollower(long userIdx) {
+        List<Following> follows= followingRepository.findByFollowingId(userIdx);
+        List<ProfileResponse> array = new ArrayList<>();
         follows.stream().map(v ->
                 array.add(
-                        FollowResponseDto.createFollow(userRepository.findById(v.getFollowingId()).get().getProfileImg(),
+                        ProfileResponse.createFollow(userRepository.findById(v.getFollowingId()).get().getId(),
+                                userRepository.findById(v.getFollowingId()).get().getProfileImg(),
                                 userRepository.findById(v.getFollowingId()).get().getNickname(),
                                 userRepository.findById(v.getFollowingId()).get().getJob(),
-                                userRepository.findById(v.getFollowingId()).get().getCompany())));
+                                userRepository.findById(v.getFollowingId()).get().getCompany(),
+                                userRepository.findById(v.getFollowingId()).get().getFollowerCount(),
+                                false))
+        );
         return array;
     }
 

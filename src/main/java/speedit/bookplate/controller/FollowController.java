@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import speedit.bookplate.config.CommonResponseDto;
 import speedit.bookplate.service.FollowService;
-import speedit.bookplate.dto.follow.FollowResponseDto;
+import speedit.bookplate.dto.follow.ProfileResponse;
 import speedit.bookplate.utils.JwtService;
 
 import java.util.List;
@@ -39,25 +39,25 @@ public class FollowController {
     }
 
 
-    @RequestMapping(value = "/following",method = RequestMethod.GET)
-    public ResponseEntity<List<FollowResponseDto>> getFollowing(){
+    @RequestMapping(value = "/followings",method = RequestMethod.GET)
+    public ResponseEntity<List<ProfileResponse>> getByFollowings(){
         jwtService.isExpireAccessToken();
         long userId = jwtService.getUserIdx();
 
-        List<FollowResponseDto> followResponseDtos = followService.getFollowing(userId);
+        List<ProfileResponse> profileResponses = followService.getFollowing(userId);
 
-        return ResponseEntity.ok(followResponseDtos);
+        return ResponseEntity.ok(profileResponses);
     }
 
 
     @RequestMapping(value = "/follower",method = RequestMethod.GET)
-    public ResponseEntity<List<FollowResponseDto>> getFollower(){
+    public ResponseEntity<List<ProfileResponse>> getFollower(){
         jwtService.isExpireAccessToken();
         long userId = jwtService.getUserIdx();
 
-        List<FollowResponseDto> followResponseDtos = followService.getFollower(userId);
+        List<ProfileResponse> profileResponses = followService.getFollower(userId);
 
-        return ResponseEntity.ok().body(followResponseDtos);
+        return ResponseEntity.ok().body(profileResponses);
     }
 
 }
