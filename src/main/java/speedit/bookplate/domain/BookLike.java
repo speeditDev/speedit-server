@@ -21,18 +21,11 @@ public class BookLike extends BaseTimeEntity {
     @Column(name = "book_Id")
     private Long bookId;
 
-    @Column(nullable = false)
-    private Boolean isLiked;    //좋아요 클릭 여부
-
     public static BookLike createLike(Long userId, Long bookId) {
         return BookLike.builder()
                 .userId(userId)
                 .bookId(bookId)
-                .isLiked(true)
                 .build();
     }
 
-    public void cancelLikeBook(Boolean isLiked){
-        this.isLiked = isLiked;
-    }
 }

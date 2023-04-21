@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.domain.Book;
+import speedit.bookplate.domain.BookLike;
 import speedit.bookplate.domain.Feed;
 import speedit.bookplate.dto.book.*;
+import speedit.bookplate.dto.booklike.BookLikeRequestDto;
 import speedit.bookplate.exception.DuplicateBookException;
 import speedit.bookplate.exception.NotFoundBookIdxException;
+import speedit.bookplate.repository.BookLikeRepository;
 import speedit.bookplate.repository.BookRepository;
 import speedit.bookplate.repository.FeedRepository;
 import speedit.bookplate.utils.AladinFeignClient;
@@ -25,6 +28,7 @@ public class BookService {
     private final FeedRepository feedRepository;
     private final AladinFeignClient aladinFeignClient;
     private final AladinSearchFeignClient aladinSearchFeignClient;
+    private final BookLikeRepository bookLikeRepository;
 
     @Transactional
     public void storageBook(StorageBookReqDto storageBookReqDto) {
@@ -72,5 +76,15 @@ public class BookService {
 
         BookDetailResDto bookDetailResDto = new BookDetailResDto();
         return bookDetailResDto;
+    }
+
+    @Transactional
+    public void likeBook(Long userIdx, BookLikeRequestDto bookLikeRequestDto) {
+        bookLikeRepository.save(BookLike.createLike(userIdx, bookLikeRequestDto.getBookIdx()));
+    }
+
+    @Transactional
+    public void cancelLikeBook(BookLikeRequestDto bookLikeRequestDto) {
+        BookLike bookLike = bookLikeRepository.findByBookId(bookLikeRequestDto.getBookIdx());
     }
 }

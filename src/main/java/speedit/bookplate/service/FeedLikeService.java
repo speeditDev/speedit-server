@@ -28,7 +28,6 @@ public class FeedLikeService {
 
     public CommonResponseDto cancelLikeFeed(FeedLikeRequsetDto feedLikeRequsetDto) {
         FeedLike feedLike = feedLikeRepository.findByFeedId(feedLikeRequsetDto.getFeedIdx());
-        feedLike.cancelLikeFeed(false);
         return new CommonResponseDto();
     }
 
