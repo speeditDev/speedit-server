@@ -76,13 +76,13 @@ public class FeedController {
     }
 
     @RequestMapping(value = "/{feedIdx}/likes",method = RequestMethod.POST)
-    public ResponseEntity<CommonResponseDto> likeFeed(@PathVariable final Long feedIdx)  {
+    public ResponseEntity<FeedLikeResponseDto> likeFeed(@PathVariable final Long feedIdx)  {
         jwtService.isExpireAccessToken();
         return ResponseEntity.ok().body(feedService.likeFeed(jwtService.getUserIdx(), feedIdx));
     }
 
     @RequestMapping(value = "/{feedIdx}/likes",method = RequestMethod.DELETE)
-    public ResponseEntity<CommonResponseDto> cancelLikeFeed(@PathVariable final Long feedIdx)  {
+    public ResponseEntity<FeedLikeResponseDto> cancelLikeFeed(@PathVariable final Long feedIdx)  {
         jwtService.isExpireAccessToken();
         return ResponseEntity.ok().body(feedService.cancelLikeFeed(jwtService.getUserIdx(),feedIdx));
     }

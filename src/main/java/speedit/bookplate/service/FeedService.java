@@ -3,7 +3,6 @@ package speedit.bookplate.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import speedit.bookplate.config.CommonResponseDto;
 import speedit.bookplate.domain.*;
 import speedit.bookplate.dto.feed.*;
 import speedit.bookplate.exception.*;
@@ -87,7 +86,7 @@ public class FeedService {
                 .collect(Collectors.toList());
     }
 
-    public CommonResponseDto likeFeed(Long userIdx, Long feedIdx) {
+    public FeedLikeResponseDto likeFeed(Long userIdx, Long feedIdx) {
         final Feed feed = feedRepository.findById(feedIdx)
                 .orElseThrow(()-> new NotFoundFeedException());
         if(feedLikeRepository.existsByFeedIdAndUserId(feedIdx,userIdx)){
@@ -95,17 +94,17 @@ public class FeedService {
         }
         feed.like();
         feedLikeRepository.save(new FeedLike(userIdx,feedIdx));
-        return new CommonResponseDto();
+        return new FeedLikeResponseDto(feed.getLikes(),true);
     }
 
-    public CommonResponseDto cancelLikeFeed(Long userIdx,Long feedIdx) {
+    public FeedLikeResponseDto cancelLikeFeed(Long userIdx,Long feedIdx) {
         final Feed feed = feedRepository.findById(feedIdx)
                 .orElseThrow(()-> new NotFoundFeedException());
         final FeedLike feedLike = feedLikeRepository.findByFeedIdAndUserId(feedIdx,userIdx)
                 .orElseThrow(()->new InvalidCancelLikeBookException());
         feed.cancelLike();
         feedLikeRepository.delete(feedLike);
-        return new CommonResponseDto();
+        return new FeedLikeResponseDto(feed.getLikes(),false);
     }
 
 
