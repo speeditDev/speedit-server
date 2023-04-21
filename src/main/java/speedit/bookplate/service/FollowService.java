@@ -26,7 +26,11 @@ public class FollowService {
         validateUserExists(followerId);
         validateUserExists(followingId);
         validateNotFollowing(followerId,followingId);
-        followRepository.save(new Following(followerId,followingId));
+        final Following following = Following.builder()
+                .followerId(followerId)
+                .followingId(followingId)
+                .build();
+        followRepository.save(following);
         User user = userRepository.findById(followerId)
                 .orElseThrow(()->new NotExistUserException());
         user.increaseFollowerCnt();
@@ -37,7 +41,11 @@ public class FollowService {
         validateUserExists(followerId);
         validateUserExists(followingId);
         findFollowingRelation(followerId,followingId);
-        followRepository.delete(new Following(followerId,followingId));
+        final Following following = Following.builder()
+                .followerId(followerId)
+                .followingId(followingId)
+                .build();
+        followRepository.delete(following);
         User user = userRepository.findById(followerId)
                 .orElseThrow(()->new NotExistUserException());
         user.decreaseFollowerCnt();

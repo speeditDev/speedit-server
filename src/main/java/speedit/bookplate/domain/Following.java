@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Following extends BaseTimeEntity {
     
     @Id
@@ -21,6 +21,5 @@ public class Following extends BaseTimeEntity {
 
     @Column(name = "following_id",nullable = false)
     private Long followingId;
-
 
 }
