@@ -4,7 +4,7 @@ import lombok.Getter;
 import speedit.bookplate.domain.User;
 
 @Getter
-public class UserRequestDto {
+public class UserRequest {
 
     private String profileImg;
 

@@ -2,7 +2,6 @@ package speedit.bookplate.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import speedit.bookplate.config.CommonResponseDto;
 import speedit.bookplate.dto.user.*;
@@ -14,7 +13,7 @@ import speedit.bookplate.utils.JwtService;
 
 import javax.validation.Valid;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
@@ -23,28 +22,28 @@ public class UserController {
     private final JwtService jwtService;
 
     @RequestMapping(value = "/sign-up",method = RequestMethod.POST)
-    public ResponseEntity<CommonResponseDto> SingUp(@Valid @RequestBody UserCreateRequestDto userCreateRequestDto) {
-        return ResponseEntity.ok().body(userService.SignUp(userCreateRequestDto));
+    public ResponseEntity<CommonResponseDto> SingUp(@Valid @RequestBody UserCreateRequest userCreateRequest) {
+        return ResponseEntity.ok().body(userService.SignUp(userCreateRequest));
     }
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public ResponseEntity<UserLoginResponseDto> login(@Valid @RequestBody UserLoginRequestDto userLoginRequestDto){
-        return ResponseEntity.ok().body(userService.login(userLoginRequestDto));
+    public ResponseEntity<UserLoginResponse> login(@Valid @RequestBody UserLoginRequest userLoginRequest){
+        return ResponseEntity.ok().body(userService.login(userLoginRequest));
     }
 
     @RequestMapping(value = "/nickname",method = RequestMethod.POST)
-    public ResponseEntity<CommonResponseDto> checkNickname(@RequestBody UserNicknameRequestDto userNicknameRequestDto){
+    public ResponseEntity<CommonResponseDto> checkNickname(@RequestBody UserNicknameRequest userNicknameRequest){
 
-        if(userService.checkNickname(userNicknameRequestDto.getNickname())){
+        if(userService.checkNickname(userNicknameRequest.getNickname())){
             throw new DuplicateNicknameException();
         }
         return ResponseEntity.ok().body(new CommonResponseDto());
     }
 
     @RequestMapping(value = "/email",method = RequestMethod.POST)
-    public ResponseEntity<CommonResponseDto> checkEmail(@RequestBody UserEmailRequestDto userEmailRequestDto){
+    public ResponseEntity<CommonResponseDto> checkEmail(@RequestBody UserEmailRequest userEmailRequest){
 
-        if(userService.checkEmail(userEmailRequestDto.getEmail())){
+        if(userService.checkEmail(userEmailRequest.getEmail())){
             throw new DuplicationEmailException();
         }
 
@@ -53,13 +52,13 @@ public class UserController {
 
 
     @RequestMapping(value = "/id",method = RequestMethod.POST)
-    public ResponseEntity<UserIdResponseDto> findNickname(@RequestBody UserIdRequestDto userIdRequestDto){
-        return ResponseEntity.ok(userService.findUserId(userIdRequestDto));
+    public ResponseEntity<UserIdResponseDto> findNickname(@RequestBody UserIdRequest userIdRequest){
+        return ResponseEntity.ok(userService.findUserId(userIdRequest));
     }
 
 
-    @RequestMapping(value = "/profiles",method = RequestMethod.GET)
-    public ResponseEntity<UserProfileResponseDto> getUserProfile(){
+    @RequestMapping(value = "/profile",method = RequestMethod.GET)
+    public ResponseEntity<UserProfileResponse> getUserProfile(){
         jwtService.isExpireAccessToken();
         return ResponseEntity.ok().body(userService.getUserProfile(jwtService.getUserIdx()));
     }
@@ -76,24 +75,24 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "",method = RequestMethod.PATCH)
-    public ResponseEntity<CommonResponseDto> modifyProfile(@RequestBody UserRequestDto userRequestDto) {
+    @RequestMapping(value = "/profile",method = RequestMethod.PATCH)
+    public ResponseEntity<CommonResponseDto> modifyProfile(@RequestBody UserRequest userRequest) {
         jwtService.isExpireAccessToken();
         long userIdx = jwtService.getUserIdx();
 
-        userService.modifyProfile(userIdx,userRequestDto);
+        userService.modifyProfile(userIdx, userRequest);
 
         return ResponseEntity.ok().body(new CommonResponseDto());
     }
 
     @RequestMapping(value = "/token/refresh",method = RequestMethod.GET)
-    public ResponseEntity<UserLoginResponseDto> getRefreshToken(){
+    public ResponseEntity<UserLoginResponse> getRefreshToken(){
         if(jwtService.isExpireRefreshToken()) {
             throw new ExpireTokenException();
         }
         Long userIdx = jwtService.getUserIdxUsingRefreshToken();
 
-        return ResponseEntity.ok(new UserLoginResponseDto(jwtService.createAccessToken(userIdx),jwtService.createRefreshToken(userIdx)));
+        return ResponseEntity.ok(new UserLoginResponse(jwtService.createAccessToken(userIdx),jwtService.createRefreshToken(userIdx)));
     }
 
 }

@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import speedit.bookplate.config.BaseTimeEntity;
 import speedit.bookplate.dto.feed.FeedResponseDto;
-import speedit.bookplate.dto.user.UserCreateRequestDto;
-import speedit.bookplate.dto.user.UserProfileResponseDto;
+import speedit.bookplate.dto.user.UserCreateRequest;
 import speedit.bookplate.utils.enumTypes.Gender;
 import speedit.bookplate.utils.enumTypes.UserStatus;
 
@@ -79,13 +78,13 @@ public class User extends BaseTimeEntity {
         this.status = UserStatus.INACTIVE;
     }
 
-    public void update(final User user){
-        updateNickname(user.nickname);
-        updateProfileImg(user.profileImg);
-        updateJob(user.job);
-        updateCompany(user.company);
-        updateIntroduction(user.introduction);
-        updateEmailCertified(user.isEmailCertified);
+    public void update(final User updateUser){
+        updateNickname(updateUser.nickname);
+        updateProfileImg(updateUser.profileImg);
+        updateJob(updateUser.job);
+        updateCompany(updateUser.company);
+        updateIntroduction(updateUser.introduction);
+        updateEmailCertified(updateUser.isEmailCertified);
     }
 
     private void updateNickname(final String nickname){
@@ -122,35 +121,20 @@ public class User extends BaseTimeEntity {
         this.isEmailCertified = isEmailCertified;
     }
 
-    public static User SignUpUser(UserCreateRequestDto userCreateRequestDto){
+    public static User SignUpUser(UserCreateRequest userCreateRequest){
 
         return User.builder()
-                .birth(userCreateRequestDto.getBirth())
-                .profileImg(userCreateRequestDto.getProfileImg())
+                .birth(userCreateRequest.getBirth())
+                .profileImg(userCreateRequest.getProfileImg())
                 .status(UserStatus.ACTIVE)
-                .company(userCreateRequestDto.getCompany())
-                .gender(userCreateRequestDto.getGender())
-                .job(userCreateRequestDto.getJob())
-                .nickname(userCreateRequestDto.getNickname())
-                .personalEmail(userCreateRequestDto.getPersonalEmail())
+                .company(userCreateRequest.getCompany())
+                .gender(userCreateRequest.getGender())
+                .job(userCreateRequest.getJob())
+                .nickname(userCreateRequest.getNickname())
+                .personalEmail(userCreateRequest.getPersonalEmail())
                 .followerCount(0)
-                .password(userCreateRequestDto.getPassword())
+                .password(userCreateRequest.getPassword())
                 .isEmailCertified(false)
-                .build();
-    }
-
-    public static UserProfileResponseDto converUserProfile(User user){
-        return UserProfileResponseDto.builder()
-                .profileImg(user.profileImg)
-                .nickname(user.nickname)
-                .birth(user.birth)
-                .gender(String.valueOf(user.gender))
-                .job(user.job)
-                .company(user.company)
-                .companyEmail(user.companyEmail)
-                .isEmailCertified(false)
-                .introduction(user.introduction)
-                .feeds(convertToFeedRes(user.feeds))
                 .build();
     }
 

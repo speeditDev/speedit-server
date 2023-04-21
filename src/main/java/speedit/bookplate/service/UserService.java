@@ -23,18 +23,18 @@ public class UserService {
     private final JwtService jwtService;
     private final UserRepository userRepository;
 
-    public CommonResponseDto SignUp(UserCreateRequestDto userCreateRequestDto){
+    public CommonResponseDto SignUp(UserCreateRequest userCreateRequest){
 
-        if(userRepository.existsByNicknameAndBirthAndJob(userCreateRequestDto.getNickname(), userCreateRequestDto.getBirth(), userCreateRequestDto.getJob()))
+        if(userRepository.existsByNicknameAndBirthAndJob(userCreateRequest.getNickname(), userCreateRequest.getBirth(), userCreateRequest.getJob()))
             throw new SameUserException();
 
-        userRepository.save(SignUpUser(userCreateRequestDto));
+        userRepository.save(SignUpUser(userCreateRequest));
 
         return new CommonResponseDto();
     }
 
-    public UserLoginResponseDto login(UserLoginRequestDto userLoginRequestDto){
-        User loginUser = userRepository.findByNicknameAndPassword(userLoginRequestDto.getNickname(),userLoginRequestDto.getPassword())
+    public UserLoginResponse login(UserLoginRequest userLoginRequest){
+        User loginUser = userRepository.findByNicknameAndPassword(userLoginRequest.getNickname(), userLoginRequest.getPassword())
                 .orElseThrow(()->new WrongIdOrPasswordException());
 
         Long userIdx = loginUser.getId();
@@ -42,10 +42,10 @@ public class UserService {
         String accessToken = jwtService.createAccessToken(userIdx);
         String refreshToken = jwtService.createRefreshToken(userIdx);
 
-        UserLoginResponseDto userLoginResponseDto = new UserLoginResponseDto(accessToken,refreshToken);
+        UserLoginResponse userLoginResponse = new UserLoginResponse(accessToken,refreshToken);
         loginUser.setRefreshToken(refreshToken);
 
-        return userLoginResponseDto;
+        return userLoginResponse;
     }
 
     public boolean checkNickname(String nickname){
@@ -56,8 +56,8 @@ public class UserService {
         return userRepository.existsByPersonalEmail(email);
     }
 
-    public UserIdResponseDto findUserId(UserIdRequestDto userIdRequestDto){
-        User user = userRepository.findByPersonalEmailAndBirth(userIdRequestDto.getEmail(), userIdRequestDto.getBirth())
+    public UserIdResponseDto findUserId(UserIdRequest userIdRequest){
+        User user = userRepository.findByPersonalEmailAndBirth(userIdRequest.getEmail(), userIdRequest.getBirth())
                 .orElseThrow(()-> new WrongEmailOrBirthException());
         return new UserIdResponseDto(user.getNickname(),user.getCreatedAt());
     }
@@ -68,12 +68,12 @@ public class UserService {
         user.isDelete();
     }
 
-    public void modifyProfile(long userIdx,UserRequestDto userRequestDto){
+    public void modifyProfile(long userIdx, UserRequest userRequest){
         User user = findUser(userIdx);
-        user.update(userRequestDto.toUser());
+        user.update(userRequest.toUser());
     }
 
-    public UserProfileResponseDto getUserProfile(long userIdx){
+    public UserProfileResponse getUserProfile(long userIdx){
         return converUserProfile(findUser(userIdx));
     }
 

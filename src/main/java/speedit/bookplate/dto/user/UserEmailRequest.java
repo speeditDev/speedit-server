@@ -3,8 +3,8 @@ package speedit.bookplate.dto.user;
 import lombok.Getter;
 
 @Getter
-public class UserNicknameRequestDto {
+public class UserEmailRequest {
 
-    private String nickname;
+    private String email;
 
 }

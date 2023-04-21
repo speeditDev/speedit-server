@@ -1,19 +1,16 @@
 package speedit.bookplate.dto.user;
 
-import io.swagger.annotations.ApiParam;
 import lombok.*;
 import speedit.bookplate.utils.enumTypes.Gender;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserCreateRequestDto {
+public class UserCreateRequest {
 
     @NonNull
     @NotBlank(message = "아이디는 필수 입력사항 입니다.")
