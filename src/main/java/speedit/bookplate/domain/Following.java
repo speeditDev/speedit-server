@@ -22,8 +22,5 @@ public class Following extends BaseTimeEntity {
     @Column(name = "following_id",nullable = false)
     private Long followingId;
 
-    public Following(Long followerId, Long followingId) {
-        this.followerId = followerId;
-        this.followingId = followingId;
-    }
+
 }
