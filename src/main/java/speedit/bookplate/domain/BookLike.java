@@ -1,14 +1,13 @@
 package speedit.bookplate.domain;
 
-import lombok.*;
+
+import lombok.NoArgsConstructor;
 import speedit.bookplate.config.BaseTimeEntity;
 
 import javax.persistence.*;
 
 @Entity
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class BookLike extends BaseTimeEntity {
 
     @Id
@@ -21,11 +20,9 @@ public class BookLike extends BaseTimeEntity {
     @Column(name = "book_Id")
     private Long bookId;
 
-    public static BookLike createLike(Long userId, Long bookId) {
-        return BookLike.builder()
-                .userId(userId)
-                .bookId(bookId)
-                .build();
-    }
 
+    public BookLike(Long userId, Long bookId) {
+        this.userId = userId;
+        this.bookId = bookId;
+    }
 }

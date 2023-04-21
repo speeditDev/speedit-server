@@ -49,5 +49,11 @@ public class Book extends BaseTimeEntity {
 
     private Long itemId; //책 고유번호
 
+    private Long likes;
+
+    public void like() {likes = likes +1; }
+
+    public void cancelLike() {likes = likes-1; }
+
 
 }

@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("중복된 이메일입니다.",HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(InvalidLikeMessageException.class)
+    @ExceptionHandler(InvalidLikeBookException.class)
     public ResponseEntity<String> handleInvalidLikeMessageException() {
         return new ResponseEntity<>("이미 좋아요된 피드입니다.",HttpStatus.BAD_REQUEST);
     }
@@ -107,6 +107,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidEmailTypeException.class)
     public ResponseEntity<String> handleInvalidEmailTypeException() {
         return new ResponseEntity<>("이메일 형식을 확인해주세요.",HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidCancelLikeBookException.class)
+    public ResponseEntity<String> handleInvalidCancelLikeBookException() {
+        return new ResponseEntity<>("이미 좋아요 취소를 눌렀습니다.",HttpStatus.BAD_REQUEST);
     }
 
 }

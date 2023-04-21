@@ -8,6 +8,8 @@ import speedit.bookplate.domain.BookLike;
 import speedit.bookplate.domain.Feed;
 import speedit.bookplate.dto.book.*;
 import speedit.bookplate.exception.DuplicateBookException;
+import speedit.bookplate.exception.InvalidCancelLikeBookException;
+import speedit.bookplate.exception.InvalidLikeBookException;
 import speedit.bookplate.exception.NotFoundBookIdxException;
 import speedit.bookplate.repository.BookLikeRepository;
 import speedit.bookplate.repository.BookRepository;
@@ -78,12 +80,25 @@ public class BookService {
     }
 
     @Transactional
-    public void likeBook(Long userIdx, Long bookIdx) {
-        bookLikeRepository.save(BookLike.createLike(userIdx, bookIdx));
+    public BookLikeResponseDto likeBook(Long userIdx, Long bookIdx) {
+        final Book book = bookRepository.findById(bookIdx)
+                        .orElseThrow(()->new NotFoundBookIdxException());
+        if(bookLikeRepository.existsByUserIdAndBookId(userIdx,bookIdx)){
+            throw new InvalidLikeBookException();
+        }
+        book.like();
+        bookLikeRepository.save(new BookLike(userIdx,bookIdx));
+        return new BookLikeResponseDto(book.getLikes(),true);
     }
 
     @Transactional
-    public void cancelLikeBook(Long userIdx, Long bookIdx) {
-        BookLike bookLike = bookLikeRepository.findByBookId(bookIdx);
+    public BookLikeResponseDto cancelLikeBook(Long userIdx, Long bookIdx) {
+        final Book book = bookRepository.findById(bookIdx)
+                .orElseThrow(()->new NotFoundBookIdxException());
+        final BookLike bookLike = bookLikeRepository.findByUserIdAndBookId(userIdx,bookIdx)
+                .orElseThrow(()->new InvalidCancelLikeBookException());
+        book.cancelLike();
+        bookLikeRepository.delete(bookLike);
+        return new BookLikeResponseDto(book.getLikes(),false);
     }
 }

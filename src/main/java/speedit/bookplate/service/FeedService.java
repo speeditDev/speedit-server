@@ -7,7 +7,7 @@ import speedit.bookplate.config.CommonResponseDto;
 import speedit.bookplate.domain.*;
 import speedit.bookplate.dto.feed.*;
 import speedit.bookplate.dto.feedlike.FeedLikeRequsetDto;
-import speedit.bookplate.exception.InvalidLikeMessageException;
+import speedit.bookplate.exception.InvalidLikeBookException;
 import speedit.bookplate.exception.NotExistUserException;
 import speedit.bookplate.exception.NotFoundBookIdxException;
 import speedit.bookplate.exception.NotFoundFeedException;
@@ -94,7 +94,7 @@ public class FeedService {
     public CommonResponseDto likeFeed(Long userIdx, FeedLikeRequsetDto feedLikeRequsetDto) {
 
         if(feedLikeRepository.existsByFeedIdAndUserId(feedLikeRequsetDto.getFeedIdx(),userIdx)){
-            throw new InvalidLikeMessageException();
+            throw new InvalidLikeBookException();
         }
 
         feedLikeRepository.save(FeedLike.createLike(userIdx, feedLikeRequsetDto.getFeedIdx()));
