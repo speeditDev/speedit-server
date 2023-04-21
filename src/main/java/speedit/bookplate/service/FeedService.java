@@ -3,19 +3,16 @@ package speedit.bookplate.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import speedit.bookplate.config.CommonResponseDto;
+import speedit.bookplate.domain.*;
 import speedit.bookplate.dto.feed.*;
+import speedit.bookplate.dto.feedlike.FeedLikeRequsetDto;
+import speedit.bookplate.exception.InvalidLikeMessageException;
 import speedit.bookplate.exception.NotExistUserException;
 import speedit.bookplate.exception.NotFoundBookIdxException;
 import speedit.bookplate.exception.NotFoundFeedException;
-import speedit.bookplate.domain.Book;
-import speedit.bookplate.repository.BookRepository;
-import speedit.bookplate.domain.Feed;
+import speedit.bookplate.repository.*;
 import speedit.bookplate.utils.enumTypes.Code;
-import speedit.bookplate.repository.FeedRepository;
-import speedit.bookplate.repository.FollowingRepository;
-import speedit.bookplate.domain.Following;
-import speedit.bookplate.domain.User;
-import speedit.bookplate.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +28,7 @@ public class FeedService {
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
     private final FollowingRepository followingRepository;
+    private final FeedLikeRepository feedLikeRepository;
 
     public List<Feed> getFeed(Long userIdx,Long bookIdx,Code code,String job){
         User user = userRepository.findById(userIdx)
@@ -91,6 +89,21 @@ public class FeedService {
         return feedRepository.findAllBy()
                 .stream().map(v -> FeedResponseDto.SearchFeedResDtoToEntity(v))
                 .collect(Collectors.toList());
+    }
+
+    public CommonResponseDto likeFeed(Long userIdx, FeedLikeRequsetDto feedLikeRequsetDto) {
+
+        if(feedLikeRepository.existsByFeedIdAndUserId(feedLikeRequsetDto.getFeedIdx(),userIdx)){
+            throw new InvalidLikeMessageException();
+        }
+
+        feedLikeRepository.save(FeedLike.createLike(userIdx, feedLikeRequsetDto.getFeedIdx()));
+        return new CommonResponseDto();
+    }
+
+    public CommonResponseDto cancelLikeFeed(FeedLikeRequsetDto feedLikeRequsetDto) {
+        FeedLike feedLike = feedLikeRepository.findByFeedId(feedLikeRequsetDto.getFeedIdx());
+        return new CommonResponseDto();
     }
 
 
