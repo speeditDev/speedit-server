@@ -52,17 +52,23 @@ public class UserController {
 
 
     @RequestMapping(value = "/id",method = RequestMethod.POST)
-    public ResponseEntity<UserIdResponseDto> findNickname(@RequestBody UserIdRequest userIdRequest){
+    public ResponseEntity<UserIdResponse> findNickname(@RequestBody UserIdRequest userIdRequest){
         return ResponseEntity.ok(userService.findUserId(userIdRequest));
     }
 
 
     @RequestMapping(value = "/profile",method = RequestMethod.GET)
-    public ResponseEntity<UserProfileResponse> getUserProfile(){
+    public ResponseEntity<LoggedInUserResponse> getLoggedInUserProfile(){
         jwtService.isExpireAccessToken();
         return ResponseEntity.ok().body(userService.getUserProfile(jwtService.getUserIdx()));
     }
 
+    @RequestMapping(value = "/profile/{userId}",method = RequestMethod.GET)
+    public ResponseEntity<UserResponse> getUserProfile(@PathVariable final Long userId){
+        jwtService.isExpireAccessToken();
+        Long loggedInUserId = jwtService.getUserIdx();
+        return ResponseEntity.ok().body(userService.find(userId,loggedInUserId));
+    }
 
     @RequestMapping(value = "/inactive",method = RequestMethod.PATCH)
     public ResponseEntity<CommonResponseDto> deleteUser(){

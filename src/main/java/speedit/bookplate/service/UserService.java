@@ -10,6 +10,7 @@ import speedit.bookplate.exception.NotExistUserException;
 import speedit.bookplate.exception.SameUserException;
 import speedit.bookplate.exception.WrongEmailOrBirthException;
 import speedit.bookplate.exception.WrongIdOrPasswordException;
+import speedit.bookplate.repository.FollowRepository;
 import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.utils.JwtService;
 
@@ -22,6 +23,7 @@ public class UserService {
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
+    private final FollowRepository followRepository;
 
     public CommonResponseDto SignUp(UserCreateRequest userCreateRequest){
 
@@ -56,10 +58,20 @@ public class UserService {
         return userRepository.existsByPersonalEmail(email);
     }
 
-    public UserIdResponseDto findUserId(UserIdRequest userIdRequest){
+    public UserResponse find(final Long targetId,final Long loggedInId){
+        final User user = findUser(targetId);
+        final boolean following = isFollowing(loggedInId,targetId);
+        return UserResponse.of(user,following);
+    }
+
+    private boolean isFollowing(final Long followerId,final Long followingId){
+        return followRepository.existsByFollowerIdAndFollowingId(followerId,followingId);
+    }
+
+    public UserIdResponse findUserId(UserIdRequest userIdRequest){
         User user = userRepository.findByPersonalEmailAndBirth(userIdRequest.getEmail(), userIdRequest.getBirth())
                 .orElseThrow(()-> new WrongEmailOrBirthException());
-        return new UserIdResponseDto(user.getNickname(),user.getCreatedAt());
+        return new UserIdResponse(user.getNickname(),user.getCreatedAt());
     }
 
     public void deleteUser(long userIdx){
@@ -73,9 +85,9 @@ public class UserService {
         user.update(userRequest.toUser());
     }
 
-    public UserProfileResponse getUserProfile(long userIdx){
+    public LoggedInUserResponse getUserProfile(long userIdx){
         User user = findUser(userIdx);
-        return UserProfileResponse.from(user);
+        return LoggedInUserResponse.from(user);
     }
 
     private User findUser(final Long userId){

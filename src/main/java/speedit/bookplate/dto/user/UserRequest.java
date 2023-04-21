@@ -7,15 +7,10 @@ import speedit.bookplate.domain.User;
 public class UserRequest {
 
     private String profileImg;
-
     private String nickname;
-
     private String job;
-
     private String company;
-
     private boolean isEmailCertified;
-
     private String introduction;
 
     public User toUser(){
