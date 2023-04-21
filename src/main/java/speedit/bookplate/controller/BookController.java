@@ -1,6 +1,5 @@
 package speedit.bookplate.controller;
 
-import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,11 +8,9 @@ import speedit.bookplate.dto.book.BookDetailResDto;
 import speedit.bookplate.dto.book.GetDetailResDto;
 import speedit.bookplate.dto.book.SearchBookResDto;
 import speedit.bookplate.dto.book.StorageBookReqDto;
-import speedit.bookplate.dto.booklike.BookLikeRequestDto;
 import speedit.bookplate.service.BookService;
 import speedit.bookplate.utils.JwtService;
 
-import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
@@ -52,18 +49,19 @@ public class BookController {
         return ResponseEntity.ok(bookService.getBookDetail(itemId));
     }
 
-    @RequestMapping(value = "/likeBook",method = RequestMethod.POST)
-    public ResponseEntity<CommonResponseDto> likeBook(@RequestBody @Valid BookLikeRequestDto bookLikeRequestDto) {
+    @RequestMapping(value = "/{bookIdx}/likes",method = RequestMethod.POST)
+    public ResponseEntity<CommonResponseDto> likeBook(@PathVariable final Long bookIdx) {
         jwtService.isExpireAccessToken();
         long userIdx = jwtService.getUserIdx();
-        bookService.likeBook(userIdx, bookLikeRequestDto);
+        bookService.likeBook(userIdx, bookIdx);
         return ResponseEntity.ok().body(new CommonResponseDto());
     }
 
-    @RequestMapping(value = "/cancelLikeBook",method = RequestMethod.PUT)
-    public ResponseEntity<CommonResponseDto> cancelLikeBook(@RequestBody @Valid BookLikeRequestDto bookLikeRequestDto) {
+    @RequestMapping(value = "/{bookIdx}/likes",method = RequestMethod.DELETE)
+    public ResponseEntity<CommonResponseDto> cancelLikeBook(@PathVariable final Long bookIdx) {
         jwtService.isExpireAccessToken();
-        bookService.cancelLikeBook(bookLikeRequestDto);
+        long userIdx = jwtService.getUserIdx();
+        bookService.cancelLikeBook(userIdx,bookIdx);
         return ResponseEntity.ok().body(new CommonResponseDto());
     }
 

@@ -7,7 +7,6 @@ import speedit.bookplate.domain.Book;
 import speedit.bookplate.domain.BookLike;
 import speedit.bookplate.domain.Feed;
 import speedit.bookplate.dto.book.*;
-import speedit.bookplate.dto.booklike.BookLikeRequestDto;
 import speedit.bookplate.exception.DuplicateBookException;
 import speedit.bookplate.exception.NotFoundBookIdxException;
 import speedit.bookplate.repository.BookLikeRepository;
@@ -79,12 +78,12 @@ public class BookService {
     }
 
     @Transactional
-    public void likeBook(Long userIdx, BookLikeRequestDto bookLikeRequestDto) {
-        bookLikeRepository.save(BookLike.createLike(userIdx, bookLikeRequestDto.getBookIdx()));
+    public void likeBook(Long userIdx, Long bookIdx) {
+        bookLikeRepository.save(BookLike.createLike(userIdx, bookIdx));
     }
 
     @Transactional
-    public void cancelLikeBook(BookLikeRequestDto bookLikeRequestDto) {
-        BookLike bookLike = bookLikeRepository.findByBookId(bookLikeRequestDto.getBookIdx());
+    public void cancelLikeBook(Long userIdx, Long bookIdx) {
+        BookLike bookLike = bookLikeRepository.findByBookId(bookIdx);
     }
 }
