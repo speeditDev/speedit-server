@@ -12,7 +12,6 @@ import speedit.bookplate.utils.enumTypes.Code;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -51,7 +50,7 @@ public class FeedController {
 
 
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public ResponseEntity<List<FeedResponseDto>> getFeed(@RequestParam(value = "bookdIdx",required = false) Long bookIdx,
+    public ResponseEntity<List<FeedResponseDto>> getFeed(@RequestParam(value = "bookIdx",required = false) Long bookIdx,
                                                             @RequestParam(value = "code",required = false) Code code,
                                                             @RequestParam(value = "job",required = false) String job){
             if(!Code.isExistCode(code)){
