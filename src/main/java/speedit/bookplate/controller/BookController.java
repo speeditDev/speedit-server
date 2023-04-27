@@ -27,10 +27,10 @@ public class BookController {
 
 
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public ResponseEntity<SearchBookResDto> searchBookAladin(@RequestParam String query, int page, int count) {
-        jwtService.isExpireAccessToken();
+    public ResponseEntity<NaverBookResDto> searchBookAladin(@RequestParam String query) {
+        //jwtService.isExpireAccessToken();
 
-        SearchBookResDto foundedBooks = bookService.searchBook(page, query, count);
+        NaverBookResDto foundedBooks = bookService.searchBook(query);
         return ResponseEntity.ok(foundedBooks);
     }
 

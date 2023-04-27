@@ -38,6 +38,8 @@ public class Feed extends BaseTimeEntity {
 
     private String sort;
 
+    private boolean isPrivate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;

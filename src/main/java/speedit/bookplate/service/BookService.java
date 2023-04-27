@@ -15,7 +15,7 @@ import speedit.bookplate.repository.BookLikeRepository;
 import speedit.bookplate.repository.BookRepository;
 import speedit.bookplate.repository.FeedRepository;
 import speedit.bookplate.utils.AladinFeignClient;
-import speedit.bookplate.utils.AladinSearchFeignClient;
+import speedit.bookplate.utils.NaverSearchFeignClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final FeedRepository feedRepository;
     private final AladinFeignClient aladinFeignClient;
-    private final AladinSearchFeignClient aladinSearchFeignClient;
+    private final NaverSearchFeignClient naverSearchFeignClient;
     private final BookLikeRepository bookLikeRepository;
 
     @Transactional
@@ -41,11 +41,12 @@ public class BookService {
     }
 
     @Transactional
-    public SearchBookResDto searchBook(int page, String query, int count) {
-        AladinResDto searchList = aladinSearchFeignClient.getBookDetail(query);
+    public NaverBookResDto searchBook(String query) {
+        NaverBookResDto searchList = naverSearchFeignClient.getBookDetail(query);
+
 
         SearchBookResDto resultList = new SearchBookResDto();
-
+        /*
         resultList.setTotalResults(searchList.getTotalResults());
 
         List<Content> contents = new ArrayList<>();
@@ -56,9 +57,9 @@ public class BookService {
                 );
 
         resultList.setPage(page);
-        resultList.setContent(searchList.getItem());
+        resultList.setContent(searchList.getItem());*/
 
-        return resultList;
+        return searchList;
     }
 
     @Transactional

@@ -50,7 +50,6 @@ public class FeedCreateRequestDto {
                 .user(user)
                 .book(book)
                 .contents(feedCreateRequestDto.getContents())
-                .likeCnt(0)
                 .color1(feedCreateRequestDto.getColor1())
                 .color2(feedCreateRequestDto.getColor2())
                 .opinion(feedCreateRequestDto.getOpinion())

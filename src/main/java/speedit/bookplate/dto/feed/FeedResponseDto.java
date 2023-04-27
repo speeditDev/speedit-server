@@ -45,7 +45,6 @@ public class FeedResponseDto {
                 .color1(feed.getColor1())
                 .color2(feed.getColor2())
                 .opinion(feed.getOpinion())
-                .likeCnt(feed.getLikeCnt())
                 .bookName(feed.getBook().getName())
                 .bookIdx(feed.getBook().getId())
                 .thumbnail(feed.getBook().getThumbnail())
