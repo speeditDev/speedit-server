@@ -1,12 +1,15 @@
 package speedit.bookplate.dto.book;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import speedit.bookplate.domain.Book;
 
 import javax.validation.constraints.NotBlank;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class BookReqDto {
 

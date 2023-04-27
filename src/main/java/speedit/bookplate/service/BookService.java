@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.domain.Book;
 import speedit.bookplate.domain.BookLike;
-import speedit.bookplate.domain.Feed;
 import speedit.bookplate.dto.book.*;
 import speedit.bookplate.exception.DuplicateBookException;
 import speedit.bookplate.exception.InvalidCancelLikeBookException;
