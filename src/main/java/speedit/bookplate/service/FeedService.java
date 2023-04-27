@@ -38,14 +38,18 @@ public class FeedService {
             Book book = bookRepository.findById(bookIdx)
                     .orElseThrow(()->new NotFoundBookIdxException());
             Collections.sort(book.getFeeds(),(feed1,feed2)-> (int) (feed2.getId()-feed1.getId()));
-            feeds=feedRepository.findFollowingUserFeed();
+            feeds=feedRepository.findFollowingUserFeed(userIdx)
+                    .orElseThrow(()->new NotFoundFeedException());
         } else if (code.equals(Code.M)) {
-            feeds=feedRepository.findFollowingUserFeed();
+            feeds=feedRepository.findFollowingUserFeed(userIdx)
+                    .orElseThrow(()->new NotFoundFeedException());
         } else if (code.equals(Code.J)) {
             //이쪽 부분 다시 수정
-            feeds=feedRepository.findFollowingUserFeed();
+            feeds=feedRepository.findFollowingUserFeed(userIdx)
+                    .orElseThrow(()->new NotFoundFeedException());
         } else if (code.equals(Code.F)) {
-            feeds=feedRepository.findFollowingUserFeed();
+            feeds=feedRepository.findFollowingUserFeed(userIdx)
+                    .orElseThrow(()->new NotFoundFeedException());
         } else{
             feeds = feedRepository.findAllByOrderByIdDesc();
         }
