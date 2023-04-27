@@ -3,6 +3,7 @@ package speedit.bookplate.domain;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import speedit.bookplate.config.BaseTimeEntity;
+import speedit.bookplate.dto.book.BookReqDto;
 import speedit.bookplate.utils.enumTypes.BookCategory;
 
 import javax.persistence.*;
@@ -48,5 +49,15 @@ public class Book extends BaseTimeEntity {
 
     public void cancelLike() {likes = likes-1; }
 
-
+    public Book(BookReqDto bookReqDto) {
+        this.title = bookReqDto.getTitle();
+        this.author = bookReqDto.getAuthor();
+        this.category = bookReqDto.getCategory();
+        this.publisher = bookReqDto.getPublisher();
+        this.releaseDate = bookReqDto.getReleaseDate();
+        this.description = bookReqDto.getDescription();
+        this.thumbnail = bookReqDto.getThumbnail();
+        this.isbn = bookReqDto.getIsbn();
+        this.likes = 0l;
+    }
 }

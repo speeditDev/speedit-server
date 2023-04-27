@@ -31,7 +31,7 @@ public class BookService {
             throw new DuplicateBookException();
         }
 
-        bookRepository.save(BookReqDto.bookDtoToEntity(bookReqDto));
+        bookRepository.save(new Book(bookReqDto));
     }
 
 

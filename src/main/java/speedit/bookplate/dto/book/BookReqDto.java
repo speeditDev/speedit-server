@@ -45,17 +45,5 @@ public class BookReqDto {
     @ApiModelProperty(value = "출간일", required = true)
     private String releaseDate;
 
-    public static Book bookDtoToEntity(BookReqDto bookReqDto){
-        return Book.builder()
-                .isbn(bookReqDto.getIsbn())
-                .author(bookReqDto.getAuthor())
-                .title(bookReqDto.getTitle())
-                .publisher(bookReqDto.getPublisher())
-                .releaseDate(bookReqDto.getReleaseDate())
-                .thumbnail(bookReqDto.getThumbnail())
-                .description(bookReqDto.getDescription())
-                .category(bookReqDto.getCategory())
-                .build();
-    }
 
 }
