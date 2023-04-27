@@ -32,7 +32,7 @@ public class UserCreateRequest {
 
     @NonNull
     @NotBlank(message = "직업은 필수 입력사항 입니다.")
-    private JobCategory job;
+    private String job;
 
     private String company;
 

@@ -47,8 +47,7 @@ public class User extends BaseTimeEntity {
     private String birth;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private JobCategory job;
+    private String job;
 
     private String introduction;
 
@@ -99,7 +98,7 @@ public class User extends BaseTimeEntity {
         }
     }
 
-    private void updateJob(final JobCategory job){
+    private void updateJob(final String job){
         if(job!=null){
             this.job=job;
         }

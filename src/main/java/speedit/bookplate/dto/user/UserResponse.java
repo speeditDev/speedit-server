@@ -30,7 +30,7 @@ public class UserResponse {
                 .profileImg(user.getProfileImg())
                 .birth(user.getBirth())
                 .gender(user.getGender().getGender())
-                .job(user.getJob().getTitle())
+                .job(user.getJob())
                 .company(user.getCompany())
                 .companyEmail(user.getCompanyEmail())
                 .isEmailCertified(user.getIsEmailCertified())

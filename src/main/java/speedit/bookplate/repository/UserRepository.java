@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import speedit.bookplate.domain.User;
 import speedit.bookplate.utils.enumTypes.JobCategory;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -12,7 +13,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     Optional<User> findByNicknameAndPassword(String nickname,String password);
 
-    boolean existsByNicknameAndBirthAndJob(String nickname, String birth, JobCategory job);
+    boolean existsByNicknameAndBirthAndJob(String nickname, String birth, String job);
 
     boolean existsByNickname(String name);
 
@@ -21,5 +22,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findById(Long id);
 
     Optional<User> findByPersonalEmailAndBirth(String personalEmail,String birth);
+
+    Optional<List<User>> findUserByJob(String job);
 
 }

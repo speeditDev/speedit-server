@@ -32,7 +32,7 @@ public class FeedResponseDto {
         return FeedResponseDto.builder()
                 .profileImg(feed.getUser().getProfileImg())
                 .nickname(feed.getUser().getNickname())
-                .job(feed.getUser().getJob().getTitle())
+                .job(feed.getUser().getJob())
                 .company(feed.getUser().getCompany())
                 .feedIdx(feed.getId())
                 .contents(feed.getContents())

@@ -23,7 +23,7 @@ public class ProfileResponse {
              user.getId(),
              user.getProfileImg(),
              user.getNickname(),
-             user.getJob().getTitle(),
+             user.getJob(),
              user.getCompany(),
              user.getFollowerCount(),
              false

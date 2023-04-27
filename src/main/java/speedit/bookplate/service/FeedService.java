@@ -37,6 +37,12 @@ public class FeedService {
             Collections.sort(book.getFeeds(),(feed1,feed2)-> (int) (feed2.getId()-feed1.getId()));
             feeds = book.getFeeds();
         } else if (code.equals(Code.M)) {
+            String[] jobList = job.split(",");
+            for(int i=0; i>jobList.length; i++){
+                String userJob = jobList[i];
+
+            }
+
             feeds=feedRepository.findAllByUserId(userIdx)
                     .orElseThrow(()->new NotFoundFeedException());
         } else if (code.equals(Code.J)) {
