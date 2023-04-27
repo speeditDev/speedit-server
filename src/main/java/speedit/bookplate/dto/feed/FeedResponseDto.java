@@ -30,7 +30,7 @@ public class FeedResponseDto {
     private String thumbnail; //책 표지
     private String author;   //작가 이름
 
-    public static FeedResponseDto SearchFeedResDtoToEntity(Feed feed){
+    public static FeedResponseDto of(final Feed feed){
         return FeedResponseDto.builder()
                 .profileImg(feed.getUser().getProfileImg())
                 .nickname(feed.getUser().getNickname())

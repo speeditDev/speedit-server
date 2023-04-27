@@ -24,7 +24,7 @@ public class BookDetailResDto {
     private boolean isLiked;
     private List<BookDetailFeedResDto> bookDetailFeedResDtoList;
 
-    public static BookDetailResDto convertBookDetailRes(Book book, List<Feed> feed,boolean isLiked){
+    public static BookDetailResDto of(Book book, List<Feed> feed,boolean isLiked){
         return BookDetailResDto.builder()
                 .isbn(book.getIsbn())
                 .title(book.getTitle())

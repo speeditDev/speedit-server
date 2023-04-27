@@ -61,7 +61,7 @@ public class FeedController {
             long userIdx = jwtService.getUserIdx();
 
             List<FeedResponseDto> searchFeedRes = feedService.getFeed(userIdx,bookIdx,code,job)
-                    .stream().map(v-> FeedResponseDto.SearchFeedResDtoToEntity(v))
+                    .stream().map(v-> FeedResponseDto.of(v))
                     .collect(Collectors.toList());
 
             return ResponseEntity.ok().body(searchFeedRes);

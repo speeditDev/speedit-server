@@ -82,7 +82,7 @@ public class FeedService {
 
     public List<FeedResponseDto> getFeeds(){
         return feedRepository.findAllBy()
-                .stream().map(v -> FeedResponseDto.SearchFeedResDtoToEntity(v))
+                .stream().map(v -> FeedResponseDto.of(v))
                 .collect(Collectors.toList());
     }
 

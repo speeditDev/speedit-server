@@ -62,7 +62,7 @@ public class BookService {
                 .orElseThrow(()-> new NotFoundFeedException());
         boolean isLiked = bookLikeRepository.existsByUserIdAndBookId(userIdx,book.getId());
 
-        BookDetailResDto bookDetailResDto = BookDetailResDto.convertBookDetailRes(book,feeds,isLiked);
+        BookDetailResDto bookDetailResDto = BookDetailResDto.of(book,feeds,isLiked);
 
         return bookDetailResDto;
     }
