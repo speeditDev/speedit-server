@@ -31,7 +31,6 @@ public class BookService {
     private final NaverSearchFeignClient naverSearchFeignClient;
     private final BookLikeRepository bookLikeRepository;
 
-    @Transactional
     public void storageBook(StorageBookReqDto storageBookReqDto) {
         if(bookRepository.existsByItemId(storageBookReqDto.getItemId())==true){
             throw new DuplicateBookException();
@@ -40,7 +39,7 @@ public class BookService {
         bookRepository.save(StorageBookReqDto.bookDtoToEntity(storageBookReqDto));
     }
 
-    @Transactional
+
     public List<SearchBookResDto> searchBook(String query,int start) {
         NaverBookResDto searchList = naverSearchFeignClient.getBookDetail(query,start);
 
@@ -52,7 +51,7 @@ public class BookService {
         return resultList;
     }
 
-    @Transactional
+
     public GetDetailResDto getAladinBookDetail(Long bookIdx){
         aladinFeignClient.getBookDetail(bookIdx);
         GetDetailResDto res = new GetDetailResDto();
@@ -60,7 +59,7 @@ public class BookService {
         return res;
     }
 
-    @Transactional
+
     public BookDetailResDto getBookDetail(Long bookIdx){
         Book book = bookRepository.findByItemId(bookIdx)
                 .orElseThrow(()->new NotFoundBookIdxException());
@@ -70,7 +69,7 @@ public class BookService {
         return bookDetailResDto;
     }
 
-    @Transactional
+
     public BookLikeResponseDto likeBook(Long userIdx, Long bookIdx) {
         final Book book = bookRepository.findById(bookIdx)
                         .orElseThrow(()->new NotFoundBookIdxException());
@@ -82,7 +81,7 @@ public class BookService {
         return new BookLikeResponseDto(book.getLikes(),true);
     }
 
-    @Transactional
+   
     public BookLikeResponseDto cancelLikeBook(Long userIdx, Long bookIdx) {
         final Book book = bookRepository.findById(bookIdx)
                 .orElseThrow(()->new NotFoundBookIdxException());
