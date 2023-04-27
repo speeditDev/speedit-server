@@ -43,17 +43,5 @@ public class FeedRequestDto {
     @ApiModelProperty(value = "나만 보기 여부", required = true)
     private Boolean isPrivate;
 
-    public static Feed FeedDtoToEntity(User user, Book book, FeedRequestDto feedRequestDto){
-        return Feed.builder()
-                .status(Status.Y)
-                .sort(feedRequestDto.getSort())
-                .user(user)
-                .book(book)
-                .contents(feedRequestDto.getContents())
-                .color1(feedRequestDto.getColor1())
-                .color2(feedRequestDto.getColor2())
-                .opinion(feedRequestDto.getOpinion())
-                .build();
-    }
 
 }

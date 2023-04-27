@@ -1,6 +1,7 @@
 package speedit.bookplate.domain;
 
 import lombok.*;
+import speedit.bookplate.dto.feed.FeedRequestDto;
 import speedit.bookplate.dto.feed.FeedUpdateRequestDto;
 import speedit.bookplate.utils.enumTypes.Status;
 import speedit.bookplate.config.BaseTimeEntity;
@@ -63,5 +64,18 @@ public class Feed extends BaseTimeEntity {
         this.opinion = feedUpdateRequestDto.getOpinion();
     }
 
+    public Feed(FeedRequestDto feedRequestDto, User user, Book book) {
+        this.id = feedRequestDto.getBookIdx();
+        this.status = Status.Y;
+        this.contents = feedRequestDto.getContents();
+        this.opinion = feedRequestDto.getOpinion();
+        this.color1 = feedRequestDto.getColor1();
+        this.color2 = feedRequestDto.getColor2();
+        this.likes = 0l;
+        this.sort = feedRequestDto.getSort();
+        this.isPrivate = feedRequestDto.getIsPrivate();
+        this.user = user;
+        this.book = book;
+    }
 }
 

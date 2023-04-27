@@ -64,7 +64,8 @@ public class FeedService {
                 .orElseThrow(()-> new NotFoundBookIdxException());
         User user = userRepository.findById(userIdx)
                 .orElseThrow(() -> new NotExistUserException());
-        Feed feed = FeedRequestDto.FeedDtoToEntity(user,book,feedRequestDto);
+        Feed feed = new Feed(feedRequestDto,user,book);
+
         feedRepository.save(feed);
     }
 
