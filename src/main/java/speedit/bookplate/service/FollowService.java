@@ -76,7 +76,7 @@ public class FollowService {
                 ProfileResponse.createFollow(userRepository.findById(v.getFollowingId()).get().getId(),
                         userRepository.findById(v.getFollowingId()).get().getProfileImg(),
                         userRepository.findById(v.getFollowingId()).get().getNickname(),
-                        userRepository.findById(v.getFollowingId()).get().getJob(),
+                        userRepository.findById(v.getFollowingId()).get().getJob().getTitle(),
                         userRepository.findById(v.getFollowingId()).get().getCompany(),
                         userRepository.findById(v.getFollowingId()).get().getFollowerCount(),
                         false))
@@ -92,7 +92,7 @@ public class FollowService {
                         ProfileResponse.createFollow(userRepository.findById(v.getFollowingId()).get().getId(),
                                 userRepository.findById(v.getFollowingId()).get().getProfileImg(),
                                 userRepository.findById(v.getFollowingId()).get().getNickname(),
-                                userRepository.findById(v.getFollowingId()).get().getJob(),
+                                userRepository.findById(v.getFollowingId()).get().getJob().getTitle(),
                                 userRepository.findById(v.getFollowingId()).get().getCompany(),
                                 userRepository.findById(v.getFollowingId()).get().getFollowerCount(),
                                 false))

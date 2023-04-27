@@ -5,6 +5,7 @@ import lombok.*;
 import speedit.bookplate.config.BaseTimeEntity;
 import speedit.bookplate.dto.user.UserCreateRequest;
 import speedit.bookplate.utils.enumTypes.Gender;
+import speedit.bookplate.utils.enumTypes.JobCategory;
 import speedit.bookplate.utils.enumTypes.UserStatus;
 
 import javax.persistence.*;
@@ -46,7 +47,8 @@ public class User extends BaseTimeEntity {
     private String birth;
 
     @Column(nullable = false)
-    private String job;
+    @Enumerated(EnumType.STRING)
+    private JobCategory job;
 
     private String introduction;
 
@@ -97,7 +99,7 @@ public class User extends BaseTimeEntity {
         }
     }
 
-    private void updateJob(final String job){
+    private void updateJob(final JobCategory job){
         if(job!=null){
             this.job=job;
         }

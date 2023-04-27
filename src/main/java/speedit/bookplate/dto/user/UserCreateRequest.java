@@ -2,6 +2,7 @@ package speedit.bookplate.dto.user;
 
 import lombok.*;
 import speedit.bookplate.utils.enumTypes.Gender;
+import speedit.bookplate.utils.enumTypes.JobCategory;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -31,7 +32,7 @@ public class UserCreateRequest {
 
     @NonNull
     @NotBlank(message = "직업은 필수 입력사항 입니다.")
-    private String job;
+    private JobCategory job;
 
     private String company;
 

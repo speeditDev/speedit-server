@@ -3,6 +3,7 @@ package speedit.bookplate.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import speedit.bookplate.domain.User;
+import speedit.bookplate.utils.enumTypes.JobCategory;
 
 import java.util.Optional;
 
@@ -11,7 +12,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     Optional<User> findByNicknameAndPassword(String nickname,String password);
 
-    boolean existsByNicknameAndBirthAndJob(String nickname,String birth,String job);
+    boolean existsByNicknameAndBirthAndJob(String nickname, String birth, JobCategory job);
 
     boolean existsByNickname(String name);
 

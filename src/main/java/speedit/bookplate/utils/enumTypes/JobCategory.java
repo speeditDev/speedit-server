@@ -1,5 +1,8 @@
 package speedit.bookplate.utils.enumTypes;
 
+import lombok.Getter;
+
+@Getter
 public enum JobCategory {
     CEO("CEO/사업가"),PM("PO/PM"),DEVELOPER("IT개발자"),
     BUILD("건설/건축"),MANAGEMENT("경영/사무"),PUBLIC("공공/복지"),
