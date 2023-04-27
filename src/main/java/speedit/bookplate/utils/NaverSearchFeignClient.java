@@ -10,7 +10,7 @@ import speedit.bookplate.dto.book.NaverBookResDto;
 @FeignClient(name = "NaverSearchFeignClient", url = "https://openapi.naver.com/v1/search/book.json",configuration = FeignClientConfig.class)
 public interface NaverSearchFeignClient {
 
-    @RequestMapping(method = RequestMethod.GET,value = "?query={search}")
-    NaverBookResDto getBookDetail(@PathVariable("search")String searchQuery);
+    @RequestMapping(method = RequestMethod.GET,value = "?query={search}&start={start}")
+    NaverBookResDto getBookDetail(@PathVariable("search")String searchQuery,@PathVariable("start")int start);
 
 }

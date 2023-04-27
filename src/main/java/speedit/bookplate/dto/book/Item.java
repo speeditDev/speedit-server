@@ -2,8 +2,6 @@ package speedit.bookplate.dto.book;
 
 import lombok.Data;
 
-import java.util.HashMap;
-
 
 @Data
 public class Item {

@@ -41,9 +41,8 @@ public class BookService {
     }
 
     @Transactional
-    public NaverBookResDto searchBook(String query) {
-        NaverBookResDto searchList = naverSearchFeignClient.getBookDetail(query);
-
+    public NaverBookResDto searchBook(String query,int page) {
+        NaverBookResDto searchList = naverSearchFeignClient.getBookDetail(query,page);
 
         SearchBookResDto resultList = new SearchBookResDto();
         /*
