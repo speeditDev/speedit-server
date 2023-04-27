@@ -40,7 +40,7 @@ public class FeedService {
             feeds=feedRepository.findFollowingUserFeed(userIdx)
                     .orElseThrow(()->new NotFoundFeedException());
         } else if (code.equals(Code.M)) {
-            feeds=feedRepository.findFollowingUserFeed(userIdx)
+            feeds=feedRepository.findAllByUserId(userIdx)
                     .orElseThrow(()->new NotFoundFeedException());
         } else if (code.equals(Code.J)) {
             //이쪽 부분 다시 수정
