@@ -20,10 +20,8 @@ public class BookController {
     private final JwtService jwtService;
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    public ResponseEntity<CommonResponseDto> storageBook(@RequestBody StorageBookReqDto storageBookReqDto){
-        jwtService.isExpireAccessToken();
-
-        bookService.storageBook(storageBookReqDto);
+    public ResponseEntity<CommonResponseDto> createBook(@RequestBody BookReqDto bookReqDto){
+        bookService.createBook(bookReqDto);
         return ResponseEntity.ok(new CommonResponseDto());
     }
 
@@ -34,6 +32,7 @@ public class BookController {
         return ResponseEntity.ok(searchBooks);
     }
 
+    /*
     @RequestMapping(value = "/aladin/{itemId}",method = RequestMethod.GET)
     public ResponseEntity<GetDetailResDto> getAladinBookDetail(@PathVariable Long itemId){
         jwtService.isExpireAccessToken();
@@ -44,7 +43,7 @@ public class BookController {
     public ResponseEntity<BookDetailResDto> getBookDetail(@PathVariable Long itemId){
         jwtService.isExpireAccessToken();
         return ResponseEntity.ok(bookService.getBookDetail(itemId));
-    }
+    }*/
 
     @RequestMapping(value = "/{bookIdx}/likes",method = RequestMethod.POST)
     public ResponseEntity<BookLikeResponseDto> likeBook(@PathVariable final Long bookIdx) {

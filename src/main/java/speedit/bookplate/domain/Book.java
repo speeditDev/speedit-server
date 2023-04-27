@@ -21,13 +21,12 @@ public class Book extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String name;   //책 이름
+    private String title;   //책 이름
 
     @Column(nullable = false)
     private String author;     //작가명
 
-    @Enumerated(EnumType.STRING)
-    private BookCategory category;   //책그릇 카테고리명
+    private String category;   //책그릇 카테고리명
 
     private String publisher;   //출판사
 
@@ -41,13 +40,7 @@ public class Book extends BaseTimeEntity {
     @OneToMany(mappedBy = "book")
     private List<Feed> feeds = new ArrayList<>();   //피드 정보
 
-    @Column(nullable = false)
-    private String aladinCategory;  //알라딘 카테고리명
-
-    @Column(nullable = false)
-    private Integer categoryId;   //알라딘 카테고리 cid 번호
-
-    private Long itemId; //책 고유번호
+    private Long isbn; //책 고유번호
 
     private Long likes;
 

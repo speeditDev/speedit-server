@@ -5,31 +5,26 @@ import lombok.Data;
 import speedit.bookplate.domain.Book;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 
 @Data
-public class StorageBookReqDto {
+public class BookReqDto {
 
     @NotBlank(message = "책 고유번호를 입력해주세요")
     @ApiModelProperty(value = "책 고유번호", required = true)
-    private Long itemId;
+    private Long isbn;
 
     @NotBlank(message = "책 제목을 입력해주세요")
     @ApiModelProperty(value = "책 제목", required = true)
-    private String bookName;
+    private String title;
 
     @NotBlank(message = "작가명 입력해주세요")
     @ApiModelProperty(value = "작가명", required = true)
     private String author;
 
-    @NotBlank(message = "알라딘 카테고리를 입력해주세요")
-    @ApiModelProperty(value = "알라딘 카테고리", required = true)
-    private String aladinCategory;
-
-    @NotNull(message = "알라딘 카테고리 아이디을 입력해주세요")
-    @ApiModelProperty(value = "알라딘 카테고리 아이디", required = true)
-    private Integer categoryId;
+    @NotBlank(message = "카테고리를 입력해주세요")
+    @ApiModelProperty(value = "카테고리", required = true)
+    private String category;
 
     @NotBlank(message = "책 이미지를 입력해주세요")
     @ApiModelProperty(value = "책 이미지", required = true)
@@ -47,17 +42,16 @@ public class StorageBookReqDto {
     @ApiModelProperty(value = "출간일", required = true)
     private String releaseDate;
 
-    public static Book bookDtoToEntity(StorageBookReqDto storageBookReqDto){
+    public static Book bookDtoToEntity(BookReqDto bookReqDto){
         return Book.builder()
-                .itemId(storageBookReqDto.getItemId())
-                .author(storageBookReqDto.getAuthor())
-                .name(storageBookReqDto.getBookName())
-                .publisher(storageBookReqDto.getPublisher())
-                .releaseDate(storageBookReqDto.getReleaseDate())
-                .categoryId(storageBookReqDto.getCategoryId())
-                .thumbnail(storageBookReqDto.getThumbnail())
-                .description(storageBookReqDto.getDescription())
-                .aladinCategory(storageBookReqDto.getAladinCategory())
+                .isbn(bookReqDto.getIsbn())
+                .author(bookReqDto.getAuthor())
+                .title(bookReqDto.getTitle())
+                .publisher(bookReqDto.getPublisher())
+                .releaseDate(bookReqDto.getReleaseDate())
+                .thumbnail(bookReqDto.getThumbnail())
+                .description(bookReqDto.getDescription())
+                .category(bookReqDto.getCategory())
                 .build();
     }
 

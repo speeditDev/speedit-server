@@ -24,11 +24,11 @@ public class BookDetailResDto {
 
     public static BookDetailResDto convertBookDetailRes(Book book, Feed feed){
         return BookDetailResDto.builder()
-                .itemId(book.getItemId())
-                .bookName(book.getName())
+                .itemId(book.getIsbn())
+                .bookName(book.getTitle())
                 .author(book.getAuthor())
                 .thumbnail(book.getThumbnail())
-                .category(book.getAladinCategory())
+                .category(book.getCategory())
                 .releaseDate(book.getReleaseDate())
                 .publisher(book.getPublisher())
                 .description(book.getDescription())

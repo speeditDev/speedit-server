@@ -5,7 +5,7 @@ import speedit.bookplate.domain.Book;
 import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
-        Optional<Book> findByItemId(Long itemId);
-        Boolean existsByItemId(Long itemId);
+        Optional<Book> findByIsbn(Long isbn);
+        Boolean existsByIsbn(Long isbn);
         Optional<Book> findById(Long id);
 }

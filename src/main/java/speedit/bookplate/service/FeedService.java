@@ -32,7 +32,7 @@ public class FeedService {
         List<Feed> feeds = feedRepository.findAllByOrderByIdDesc();
         List<Feed> userFeeds = user.getFeeds();
         if (code.equals(Code.B)) {
-            Book book = bookRepository.findByItemId(bookIdx)
+            Book book = bookRepository.findById(bookIdx)
                     .orElseThrow(()->new NotFoundBookIdxException());
             Collections.sort(book.getFeeds(),(feed1,feed2)-> (int) (feed2.getId()-feed1.getId()));
             return book.getFeeds();
@@ -60,7 +60,7 @@ public class FeedService {
     }
 
     public void createFeed(Long userIdx, FeedCreateRequestDto regFeedRequestDto) {
-        Book book = bookRepository.findByItemId(regFeedRequestDto.getBookIdx())
+        Book book = bookRepository.findById(regFeedRequestDto.getBookIdx())
                 .orElseThrow(()-> new NotFoundBookIdxException());
         User user = userRepository.findById(userIdx)
                 .orElseThrow(() -> new NotExistUserException());
