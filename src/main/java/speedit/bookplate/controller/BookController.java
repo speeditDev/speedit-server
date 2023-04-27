@@ -19,7 +19,7 @@ public class BookController {
     private final BookService bookService;
     private final JwtService jwtService;
 
-    @RequestMapping(value = "/",method = RequestMethod.POST)
+    @RequestMapping(value = "",method = RequestMethod.POST)
     public ResponseEntity<CommonResponseDto> createBook(@RequestBody BookReqDto bookReqDto){
         bookService.createBook(bookReqDto);
         return ResponseEntity.ok(new CommonResponseDto());
