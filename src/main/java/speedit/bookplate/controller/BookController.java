@@ -25,7 +25,6 @@ public class BookController {
         return ResponseEntity.ok(new CommonResponseDto());
     }
 
-
     @RequestMapping(value = "",method = RequestMethod.GET)
     public ResponseEntity<List<SearchBookResDto>> searchBookAladin(@RequestParam String query, @RequestParam int start) {
         List<SearchBookResDto> searchBooks = bookService.searchBook(query,start);
@@ -37,13 +36,12 @@ public class BookController {
     public ResponseEntity<GetDetailResDto> getAladinBookDetail(@PathVariable Long itemId){
         jwtService.isExpireAccessToken();
         return ResponseEntity.ok(bookService.getAladinBookDetail(itemId));
-    }
-
-    @RequestMapping(value = "/{itemId}",method = RequestMethod.GET)
-    public ResponseEntity<BookDetailResDto> getBookDetail(@PathVariable Long itemId){
-        jwtService.isExpireAccessToken();
-        return ResponseEntity.ok(bookService.getBookDetail(itemId));
     }*/
+
+    @RequestMapping(value = "/{isbn}",method = RequestMethod.GET)
+    public ResponseEntity<BookDetailResDto> getBookDetail(@PathVariable Long isbn){
+        return ResponseEntity.ok(bookService.getBookDetail(isbn));
+    }
 
     @RequestMapping(value = "/{bookIdx}/likes",method = RequestMethod.POST)
     public ResponseEntity<BookLikeResponseDto> likeBook(@PathVariable final Long bookIdx) {

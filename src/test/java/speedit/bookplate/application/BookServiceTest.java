@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import speedit.bookplate.dto.book.BookReqDto;
 import speedit.bookplate.exception.DuplicateBookException;
+import speedit.bookplate.exception.NotFoundBookIdxException;
 import speedit.bookplate.repository.BookRepository;
 import speedit.bookplate.service.BookService;
 
@@ -34,6 +35,15 @@ public class BookServiceTest {
 
         Assertions.assertThrows(DuplicateBookException.class,() -> bookService.createBook(bookReqDto));
 
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 책 조회시 NotFoundBookIdxException 에러 반환하도록 수정")
+    void 존재하지_않는_책조회(){
+
+        when(bookRepository.findByIsbn(any())).thenThrow(new NotFoundBookIdxException());
+
+        Assertions.assertThrows(NotFoundBookIdxException.class,()->bookService.getBookDetail(1l));
     }
 
 

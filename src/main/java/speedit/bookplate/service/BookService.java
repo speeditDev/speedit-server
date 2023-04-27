@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.domain.Book;
 import speedit.bookplate.domain.BookLike;
+import speedit.bookplate.domain.Feed;
 import speedit.bookplate.dto.book.*;
 import speedit.bookplate.exception.DuplicateBookException;
 import speedit.bookplate.exception.InvalidCancelLikeBookException;
@@ -13,7 +14,6 @@ import speedit.bookplate.exception.NotFoundBookIdxException;
 import speedit.bookplate.repository.BookLikeRepository;
 import speedit.bookplate.repository.BookRepository;
 import speedit.bookplate.repository.FeedRepository;
-import speedit.bookplate.utils.AladinFeignClient;
 import speedit.bookplate.utils.NaverSearchFeignClient;
 
 import java.util.ArrayList;
@@ -26,7 +26,6 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final FeedRepository feedRepository;
-    private final AladinFeignClient aladinFeignClient;
     private final NaverSearchFeignClient naverSearchFeignClient;
     private final BookLikeRepository bookLikeRepository;
 
@@ -56,17 +55,17 @@ public class BookService {
         GetDetailResDto res = new GetDetailResDto();
 
         return res;
-    }
+    }*/
 
 
-    public BookDetailResDto getBookDetail(Long bookIdx){
-        Book book = bookRepository.findByItemId(bookIdx)
+    public BookDetailResDto getBookDetail(Long isbn){
+        Book book = bookRepository.findByIsbn(isbn)
                 .orElseThrow(()->new NotFoundBookIdxException());
         List<Feed> feeds = feedRepository.findByBook(book);
 
         BookDetailResDto bookDetailResDto = new BookDetailResDto();
         return bookDetailResDto;
-    }*/
+    }
 
 
     public BookLikeResponseDto likeBook(Long userIdx, Long bookIdx) {
