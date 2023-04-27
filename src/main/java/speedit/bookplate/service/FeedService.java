@@ -22,7 +22,6 @@ public class FeedService {
     private final FeedRepository feedRepository;
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
-    private final FollowingRepository followingRepository;
     private final FeedLikeRepository feedLikeRepository;
 
     public List<FeedResponseDto> getFeed(Long userIdx,Long bookIdx,Code code,String job){
@@ -49,7 +48,7 @@ public class FeedService {
                     .orElseThrow(()->new NotFoundFeedException());
         } else if (code.equals(Code.F)) {
             feeds=feedRepository.findFollowingUserFeed(userIdx)
-                    .orElseThrow(()->new NotFoundFeedException());
+                    .orElseThrow(()->new NotFoundFollowingUserFeedException());
         } else{
             feeds = feedRepository.findAllByOrderByIdDesc();
         }

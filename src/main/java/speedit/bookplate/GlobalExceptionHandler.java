@@ -114,5 +114,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("이미 좋아요 취소를 눌렀습니다.",HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(NotFoundFollowingUserFeedException.class)
+    public ResponseEntity<String> handleNotFoundFollowingUserFeedException() {
+        return new ResponseEntity<>("팔로잉한 유저들의 피드가 없습니다.",HttpStatus.BAD_REQUEST);
+    }
 
 }
