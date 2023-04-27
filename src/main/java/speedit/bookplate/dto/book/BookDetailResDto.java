@@ -7,6 +7,7 @@ import speedit.bookplate.domain.Book;
 import speedit.bookplate.domain.Feed;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
 @NoArgsConstructor
@@ -34,6 +35,9 @@ public class BookDetailResDto {
                 .publisher(book.getPublisher())
                 .description(book.getDescription())
                 .isLiked(isLiked)
+                .bookDetailFeedResDtoList(feed.stream()
+                        .map(v-> new BookDetailFeedResDto(v.getId(),v.getContents())).collect(Collectors.toList())
+                )
                 .build();
     }
 
