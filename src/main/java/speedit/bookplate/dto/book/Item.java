@@ -1,8 +1,10 @@
 package speedit.bookplate.dto.book;
 
 import lombok.Data;
+import lombok.Getter;
 
 
+@Getter
 @Data
 public class Item {
     private String title;       //책 제목

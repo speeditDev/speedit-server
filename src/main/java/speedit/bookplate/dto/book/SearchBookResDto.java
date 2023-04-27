@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class SearchBookResDto {
-     private List<Item> content;
-     private int totalResults;
-     private int page;
+     private String title;
+     private String author;
+     private String thumbnail;
 }

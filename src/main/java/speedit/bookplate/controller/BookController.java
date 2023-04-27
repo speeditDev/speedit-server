@@ -8,6 +8,8 @@ import speedit.bookplate.dto.book.*;
 import speedit.bookplate.service.BookService;
 import speedit.bookplate.utils.JwtService;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -27,9 +29,9 @@ public class BookController {
 
 
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public ResponseEntity<NaverBookResDto> searchBookAladin(@RequestParam String query,@RequestParam int page) {
-        NaverBookResDto foundedBooks = bookService.searchBook(query,page);
-        return ResponseEntity.ok(foundedBooks);
+    public ResponseEntity<List<SearchBookResDto>> searchBookAladin(@RequestParam String query, @RequestParam int start) {
+        List<SearchBookResDto> searchBooks = bookService.searchBook(query,start);
+        return ResponseEntity.ok(searchBooks);
     }
 
     @RequestMapping(value = "/aladin/{itemId}",method = RequestMethod.GET)

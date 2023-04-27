@@ -41,24 +41,15 @@ public class BookService {
     }
 
     @Transactional
-    public NaverBookResDto searchBook(String query,int page) {
-        NaverBookResDto searchList = naverSearchFeignClient.getBookDetail(query,page);
+    public List<SearchBookResDto> searchBook(String query,int start) {
+        NaverBookResDto searchList = naverSearchFeignClient.getBookDetail(query,start);
 
-        SearchBookResDto resultList = new SearchBookResDto();
-        /*
-        resultList.setTotalResults(searchList.getTotalResults());
+        List<SearchBookResDto> resultList = new ArrayList<>();
 
-        List<Content> contents = new ArrayList<>();
+        searchList.getItems().stream()
+                .forEach(v-> resultList.add(new SearchBookResDto(v.getTitle(),v.getAuthor(),v.getImage())));
 
-        searchList.getItem().stream().map(v ->
-                contents.add(
-                        new Content(v.getTitle(),v.getItemId(),v.getAuthor(),v.getAuthor(),v.getCategoryName(),v.getCategoryId(),v.getCover(),v.getPubDate(),v.getDescription()))
-                );
-
-        resultList.setPage(page);
-        resultList.setContent(searchList.getItem());*/
-
-        return searchList;
+        return resultList;
     }
 
     @Transactional
