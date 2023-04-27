@@ -25,39 +25,36 @@ public class FeedService {
     private final FollowingRepository followingRepository;
     private final FeedLikeRepository feedLikeRepository;
 
-    public List<Feed> getFeed(Long userIdx,Long bookIdx,Code code,String job){
+    public List<FeedResponseDto> getFeed(Long userIdx,Long bookIdx,Code code,String job){
         User user = userRepository.findById(userIdx)
                 .orElseThrow(()->new NotExistUserException());
 
-        List<Feed> feeds = feedRepository.findAllByOrderByIdDesc();
+        List<Feed> feeds = null;
+        List<FeedResponseDto> resultFeeds = new ArrayList<>();
+
         List<Feed> userFeeds = user.getFeeds();
+
         if (code.equals(Code.B)) {
             Book book = bookRepository.findById(bookIdx)
                     .orElseThrow(()->new NotFoundBookIdxException());
             Collections.sort(book.getFeeds(),(feed1,feed2)-> (int) (feed2.getId()-feed1.getId()));
-            return book.getFeeds();
+            feeds=feedRepository.findFollowingUserFeed();
         } else if (code.equals(Code.M)) {
-            return userFeeds;
+            feeds=feedRepository.findFollowingUserFeed();
         } else if (code.equals(Code.J)) {
             //이쪽 부분 다시 수정
-            return userFeeds;
+            feeds=feedRepository.findFollowingUserFeed();
         } else if (code.equals(Code.F)) {
-            return getFollowingUsers(userIdx);
+            feeds=feedRepository.findFollowingUserFeed();
         } else{
-            return feeds;
+            feeds = feedRepository.findAllByOrderByIdDesc();
         }
+
+        feeds.stream().forEach(v->resultFeeds.add(FeedResponseDto.of(v)));
+
+        return resultFeeds;
     }
 
-
-    public List<Feed> getFollowingUsers(long followerIdx) {
-        List<Following> a = followingRepository.findByFollowingId(followerIdx);
-        List<Feed> array = new ArrayList<>();
-        /*
-        a.stream().map(v->
-                array.addAll(feedRepository.findById(v.getFollowingId()))
-        );*/
-        return array;
-    }
 
     public void createFeed(Long userIdx, FeedRequestDto feedRequestDto) {
         Book book = bookRepository.findById(feedRequestDto.getBookIdx())

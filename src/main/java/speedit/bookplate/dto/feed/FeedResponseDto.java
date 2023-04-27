@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import speedit.bookplate.domain.Feed;
-import speedit.bookplate.utils.enumTypes.Status;
 
 @Builder
 @AllArgsConstructor
@@ -15,9 +14,8 @@ public class FeedResponseDto {
     private String job;
     private String company;
     private Long feedIdx;     //피드 고유번호
-    private Status status;      //피드 상태
     private String contents;    //피드 내용
-    //private Boolean isLiked;    //피드 좋아요 쿨락 여부
+    private Boolean isLiked;    //피드 좋아요 쿨락 여부
     private Boolean isMine; //내것인지 아닌지 여부
     private Boolean isPrivate;  //나만 보기 피드 여부
     private String sort;
@@ -37,7 +35,6 @@ public class FeedResponseDto {
                 .job(feed.getUser().getJob())
                 .company(feed.getUser().getCompany())
                 .feedIdx(feed.getId())
-                .status(Status.Y)
                 .contents(feed.getContents())
                 .isMine(false)
                 .isPrivate(false)

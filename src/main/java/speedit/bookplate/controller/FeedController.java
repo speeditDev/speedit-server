@@ -25,10 +25,10 @@ public class FeedController {
 
     @RequestMapping(value = "",method = RequestMethod.POST)
     public ResponseEntity<CommonResponseDto> createFeed(@RequestBody @Valid FeedRequestDto feedRequestDto) {
-            jwtService.isExpireAccessToken();
-            long userIdx = jwtService.getUserIdx();
-            feedService.createFeed(userIdx, feedRequestDto);
-            return ResponseEntity.ok(new CommonResponseDto());
+        jwtService.isExpireAccessToken();
+        long userIdx = jwtService.getUserIdx();
+        feedService.createFeed(userIdx, feedRequestDto);
+        return ResponseEntity.ok(new CommonResponseDto());
     }
 
 
@@ -57,14 +57,11 @@ public class FeedController {
             if(!Code.isExistCode(code)){
                 throw new NotExistCodeException();
             }
+
             jwtService.isExpireAccessToken();
             long userIdx = jwtService.getUserIdx();
 
-            List<FeedResponseDto> searchFeedRes = feedService.getFeed(userIdx,bookIdx,code,job)
-                    .stream().map(v-> FeedResponseDto.of(v))
-                    .collect(Collectors.toList());
-
-            return ResponseEntity.ok().body(searchFeedRes);
+            return ResponseEntity.ok().body(feedService.getFeed(userIdx,bookIdx,code,job));
     }
 
     @RequestMapping(value = "/all",method = RequestMethod.GET)

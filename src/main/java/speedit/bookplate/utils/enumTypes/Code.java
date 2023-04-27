@@ -2,11 +2,6 @@ package speedit.bookplate.utils.enumTypes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import speedit.bookplate.domain.Feed;
-import speedit.bookplate.repository.FeedRepository;
-
-import java.util.List;
-import java.util.function.Supplier;
 
 
 @Getter

@@ -2,10 +2,6 @@ package speedit.bookplate.dto.feed;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import speedit.bookplate.domain.Book;
-import speedit.bookplate.domain.Feed;
-import speedit.bookplate.domain.User;
-import speedit.bookplate.utils.enumTypes.Status;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
