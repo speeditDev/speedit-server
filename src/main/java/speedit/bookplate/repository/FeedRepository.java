@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface FeedRepository extends JpaRepository<Feed, Long> {
     Optional<Feed> findById(Long id);
     List<Feed> findAllByOrderByIdDesc();
-    List<Feed> findByBook(Book book);
+    Optional<List<Feed>> findByBook(Book book);
     List<Feed> findAllBy();
 }

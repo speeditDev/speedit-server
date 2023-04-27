@@ -114,4 +114,5 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("이미 좋아요 취소를 눌렀습니다.",HttpStatus.BAD_REQUEST);
     }
 
+
 }

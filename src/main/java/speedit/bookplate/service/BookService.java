@@ -7,10 +7,7 @@ import speedit.bookplate.domain.Book;
 import speedit.bookplate.domain.BookLike;
 import speedit.bookplate.domain.Feed;
 import speedit.bookplate.dto.book.*;
-import speedit.bookplate.exception.DuplicateBookException;
-import speedit.bookplate.exception.InvalidCancelLikeBookException;
-import speedit.bookplate.exception.InvalidLikeBookException;
-import speedit.bookplate.exception.NotFoundBookIdxException;
+import speedit.bookplate.exception.*;
 import speedit.bookplate.repository.BookLikeRepository;
 import speedit.bookplate.repository.BookRepository;
 import speedit.bookplate.repository.FeedRepository;
@@ -58,12 +55,15 @@ public class BookService {
     }*/
 
 
-    public BookDetailResDto getBookDetail(Long isbn){
+    public BookDetailResDto getBookDetail(long isbn,long userIdx){
         Book book = bookRepository.findByIsbn(isbn)
                 .orElseThrow(()->new NotFoundBookIdxException());
-        List<Feed> feeds = feedRepository.findByBook(book);
+        List<Feed> feeds = feedRepository.findByBook(book)
+                .orElseThrow(()-> new NotFoundFeedException());
+        boolean isLiked = bookLikeRepository.existsByUserIdAndBookId(userIdx,book.getId());
 
-        BookDetailResDto bookDetailResDto = new BookDetailResDto();
+        BookDetailResDto bookDetailResDto = BookDetailResDto.convertBookDetailRes(book,feeds,isLiked);
+
         return bookDetailResDto;
     }
 

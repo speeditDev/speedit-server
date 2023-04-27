@@ -43,7 +43,7 @@ public class BookServiceTest {
 
         when(bookRepository.findByIsbn(any())).thenThrow(new NotFoundBookIdxException());
 
-        Assertions.assertThrows(NotFoundBookIdxException.class,()->bookService.getBookDetail(1l));
+        Assertions.assertThrows(NotFoundBookIdxException.class,()->bookService.getBookDetail(1l,1l));
     }
 
 

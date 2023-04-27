@@ -40,7 +40,8 @@ public class BookController {
 
     @RequestMapping(value = "/{isbn}",method = RequestMethod.GET)
     public ResponseEntity<BookDetailResDto> getBookDetail(@PathVariable Long isbn){
-        return ResponseEntity.ok(bookService.getBookDetail(isbn));
+        long userIdx = jwtService.getUserIdx();
+        return ResponseEntity.ok(bookService.getBookDetail(isbn,userIdx));
     }
 
     @RequestMapping(value = "/{bookIdx}/likes",method = RequestMethod.POST)

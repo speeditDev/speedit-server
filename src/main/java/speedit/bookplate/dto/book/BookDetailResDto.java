@@ -12,26 +12,28 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookDetailResDto {
-    private Long itemId;
-    private String bookName;
+    private Long isbn;
+    private String title;
     private String author;
     private String thumbnail;
     private String category;
     private String releaseDate;
     private String publisher;
     private String description;
+    private boolean isLiked;
     private List<BookDetailFeedResDto> bookDetailFeedResDtoList;
 
-    public static BookDetailResDto convertBookDetailRes(Book book, Feed feed){
+    public static BookDetailResDto convertBookDetailRes(Book book, List<Feed> feed,boolean isLiked){
         return BookDetailResDto.builder()
-                .itemId(book.getIsbn())
-                .bookName(book.getTitle())
+                .isbn(book.getIsbn())
+                .title(book.getTitle())
                 .author(book.getAuthor())
                 .thumbnail(book.getThumbnail())
                 .category(book.getCategory())
                 .releaseDate(book.getReleaseDate())
                 .publisher(book.getPublisher())
                 .description(book.getDescription())
+                .isLiked(isLiked)
                 .build();
     }
 
