@@ -24,10 +24,10 @@ public class FeedController {
     private final JwtService jwtService;
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    public ResponseEntity<CommonResponseDto> createFeed(@RequestBody @Valid FeedCreateRequestDto feedCreateRequestDto) {
+    public ResponseEntity<CommonResponseDto> createFeed(@RequestBody @Valid FeedRequestDto feedRequestDto) {
             jwtService.isExpireAccessToken();
             long userIdx = jwtService.getUserIdx();
-            feedService.createFeed(userIdx,feedCreateRequestDto);
+            feedService.createFeed(userIdx, feedRequestDto);
             return ResponseEntity.ok(new CommonResponseDto());
     }
 

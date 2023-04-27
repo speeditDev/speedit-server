@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * 피드 등록하기 api request dto
  */
 @Data
-public class FeedCreateRequestDto {
+public class FeedRequestDto {
 
     @NotBlank(message = "문장정보를 입력해주세요")
     @ApiModelProperty(value = "문장정보", required = true)
@@ -43,16 +43,16 @@ public class FeedCreateRequestDto {
     @ApiModelProperty(value = "나만 보기 여부", required = true)
     private Boolean isPrivate;
 
-    public static Feed FeedDtoToEntity(User user, Book book, FeedCreateRequestDto feedCreateRequestDto){
+    public static Feed FeedDtoToEntity(User user, Book book, FeedRequestDto feedRequestDto){
         return Feed.builder()
                 .status(Status.Y)
-                .sort(feedCreateRequestDto.getSort())
+                .sort(feedRequestDto.getSort())
                 .user(user)
                 .book(book)
-                .contents(feedCreateRequestDto.getContents())
-                .color1(feedCreateRequestDto.getColor1())
-                .color2(feedCreateRequestDto.getColor2())
-                .opinion(feedCreateRequestDto.getOpinion())
+                .contents(feedRequestDto.getContents())
+                .color1(feedRequestDto.getColor1())
+                .color2(feedRequestDto.getColor2())
+                .opinion(feedRequestDto.getOpinion())
                 .build();
     }
 

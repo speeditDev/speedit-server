@@ -59,12 +59,12 @@ public class FeedService {
         return array;
     }
 
-    public void createFeed(Long userIdx, FeedCreateRequestDto regFeedRequestDto) {
-        Book book = bookRepository.findById(regFeedRequestDto.getBookIdx())
+    public void createFeed(Long userIdx, FeedRequestDto feedRequestDto) {
+        Book book = bookRepository.findById(feedRequestDto.getBookIdx())
                 .orElseThrow(()-> new NotFoundBookIdxException());
         User user = userRepository.findById(userIdx)
                 .orElseThrow(() -> new NotExistUserException());
-        Feed feed = FeedCreateRequestDto.FeedDtoToEntity(user,book,regFeedRequestDto);
+        Feed feed = FeedRequestDto.FeedDtoToEntity(user,book,feedRequestDto);
         feedRepository.save(feed);
     }
 
