@@ -4,32 +4,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import speedit.bookplate.dto.book.BookReqDto;
 import speedit.bookplate.exception.DuplicateBookException;
 import speedit.bookplate.exception.InvalidCancelLikeBookException;
 import speedit.bookplate.exception.NotFoundBookIdxException;
-import speedit.bookplate.repository.BookLikeRepository;
-import speedit.bookplate.repository.BookRepository;
-import speedit.bookplate.service.BookService;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class BookServiceTest {
-
-    @InjectMocks
-    private BookService bookService;
-
-    @Mock
-    private BookRepository bookRepository;
-
-    @Mock
-    private BookLikeRepository bookLikeRepository;
+public class BookServiceTest extends ServiceTest{
 
     @Test
     @DisplayName("책 DB에 Insert시 이미 존재하는 책이면 DuplicateBookException 에러 반환하도록 수정")
