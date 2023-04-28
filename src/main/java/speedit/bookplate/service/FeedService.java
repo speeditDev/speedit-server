@@ -38,13 +38,14 @@ public class FeedService {
             feeds = book.getFeeds();
         } else if (code.equals(Code.M)) {
             String[] jobList = job.split(",");
-            for(int i=0; i>jobList.length; i++){
+            for(int i=0; i<jobList.length; i++){
                 String userJob = jobList[i];
-
+                List<Feed> tmpFeed = feedRepository.findFeedByRelationJob(userJob)
+                        .orElseThrow(()->new NotFoundFeedException());
+                for(Feed eachFeed:tmpFeed){
+                    feeds.add(eachFeed);
+                }
             }
-
-            feeds=feedRepository.findAllByUserId(userIdx)
-                    .orElseThrow(()->new NotFoundFeedException());
         } else if (code.equals(Code.J)) {
             feeds=feedRepository.findFollowingUserFeed(userIdx)
                     .orElseThrow(()->new NotFoundFeedException());

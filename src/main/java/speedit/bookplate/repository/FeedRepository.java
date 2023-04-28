@@ -21,4 +21,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     @Query(value = "select f from Feed f where f.user.id =:userId",nativeQuery = true)
     Optional<List<Feed>> findAllByUserId(@Param("userId")long userId);
 
+    @Query(value = "select f from Feed f join fetch f.user u on u.id=f.user.id where job=:job",nativeQuery = true)
+    Optional<List<Feed>> findFeedByRelationJob(@Param("job")String job);
+
 }
