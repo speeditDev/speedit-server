@@ -7,15 +7,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import speedit.bookplate.domain.Book;
 import speedit.bookplate.dto.book.BookReqDto;
 import speedit.bookplate.exception.DuplicateBookException;
 import speedit.bookplate.exception.InvalidCancelLikeBookException;
 import speedit.bookplate.exception.NotFoundBookIdxException;
-import speedit.bookplate.exception.NotFoundFeedException;
 import speedit.bookplate.repository.BookLikeRepository;
 import speedit.bookplate.repository.BookRepository;
-import speedit.bookplate.repository.FeedRepository;
 import speedit.bookplate.service.BookService;
 
 import static org.mockito.ArgumentMatchers.any;
