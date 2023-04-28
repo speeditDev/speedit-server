@@ -90,7 +90,7 @@ public class UserService {
         return LoggedInUserResponse.from(user);
     }
 
-    private User findUser(final Long userId){
+    public User findUser(final Long userId){
         return userRepository.findById(userId)
                 .orElseThrow(()->new NotExistUserException());
     }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.repository.BookLikeRepository;
 import speedit.bookplate.repository.BookRepository;
+import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.service.BookService;
 import speedit.bookplate.service.UserService;
 
@@ -14,6 +15,9 @@ public abstract class ServiceTest {
 
     @Autowired
     protected UserService userService;
+
+    @Autowired
+    protected UserRepository userRepository;
 
     @InjectMocks
     protected BookService bookService;
