@@ -10,7 +10,7 @@ import org.springframework.util.StopWatch;
 
 @Slf4j
 @Aspect
-@Component 
+@Component
 public class ServiceLogAop {
 
     @Around("execution(* speedit.bookplate.service..*.*(..))")
