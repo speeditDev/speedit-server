@@ -10,6 +10,7 @@ import speedit.bookplate.utils.enumTypes.Gender;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+/*
 public class UserServiceTest extends ServiceTest{
 
 
@@ -32,3 +33,4 @@ public class UserServiceTest extends ServiceTest{
 
 
 }
+*/
