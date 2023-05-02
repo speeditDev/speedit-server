@@ -38,8 +38,7 @@ public class FeedService {
         if (code.equals(Code.B)) {
             Book book = bookRepository.findById(bookIdx)
                     .orElseThrow(()->new NotFoundBookIdxException());
-            Collections.sort(book.getFeeds(),(feed1,feed2)-> (int) (feed2.getId()-feed1.getId()));
-            feeds = book.getFeeds();
+            feeds = feedRepository.findFeedByBookId(book.getId(),pageInfo).getContent();
         } else if (code.equals(Code.J)) {
             String[] jobList = job.split(",");
             for(int i=0; i<jobList.length; i++){

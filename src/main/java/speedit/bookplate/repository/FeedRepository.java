@@ -14,11 +14,15 @@ import java.util.Optional;
 
 @Repository
 public interface FeedRepository extends JpaRepository<Feed, Long> {
+
     Optional<Feed> findById(Long id);
 
     Page<Feed> findAllByOrderByIdDesc(Pageable pageable);
 
     Optional<List<Feed>> findByBook(Book book);
+
+    Page<Feed> findFeedByBookId(Long bookIdx,Pageable pageable);
+
     List<Feed> findAllBy();
 
     @Query(value = "select f from Feed f where f.user.id in (select t.followingId from Following t where t.followerId=:followerId)")
