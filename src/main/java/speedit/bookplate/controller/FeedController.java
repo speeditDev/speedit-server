@@ -52,15 +52,16 @@ public class FeedController {
     @RequestMapping(value = "",method = RequestMethod.GET)
     public ResponseEntity<List<FeedResponseDto>> getFeed(@RequestParam(value = "bookIdx",required = false) Long bookIdx,
                                                             @RequestParam(value = "code",required = false) Code code,
-                                                            @RequestParam(value = "job",required = false) String job){
+                                                            @RequestParam(value = "job",required = false) String job,
+                                                            @RequestParam(value = "page")int page){
             if(!Code.isExistCode(code)){
                 throw new NotExistCodeException();
             }
 
-            jwtService.isExpireAccessToken();
-            long userIdx = jwtService.getUserIdx();
+            //jwtService.isExpireAccessToken();
+            long userIdx = 1L;
 
-            return ResponseEntity.ok().body(feedService.getFeed(userIdx,bookIdx,code,job));
+            return ResponseEntity.ok().body(feedService.getFeed(userIdx,bookIdx,code,job,page));
     }
 
     @RequestMapping(value = "/all",method = RequestMethod.GET)

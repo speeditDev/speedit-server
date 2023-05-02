@@ -1,6 +1,8 @@
 package speedit.bookplate.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.domain.*;
@@ -24,36 +26,36 @@ public class FeedService {
     private final UserRepository userRepository;
     private final FeedLikeRepository feedLikeRepository;
 
-    public List<FeedResponseDto> getFeed(Long userIdx,Long bookIdx,Code code,String job){
+    public List<FeedResponseDto> getFeed(Long userIdx,Long bookIdx,Code code,String job,int page){
         User user = userRepository.findById(userIdx)
                 .orElseThrow(()->new NotExistUserException());
 
-        List<Feed> feeds = null;
+        List<Feed> feeds = new ArrayList<>();
         List<FeedResponseDto> resultFeeds = new ArrayList<>();
+
+        Pageable pageInfo = PageRequest.of(page,12);
 
         if (code.equals(Code.B)) {
             Book book = bookRepository.findById(bookIdx)
                     .orElseThrow(()->new NotFoundBookIdxException());
             Collections.sort(book.getFeeds(),(feed1,feed2)-> (int) (feed2.getId()-feed1.getId()));
             feeds = book.getFeeds();
-        } else if (code.equals(Code.M)) {
+        } else if (code.equals(Code.J)) {
             String[] jobList = job.split(",");
             for(int i=0; i<jobList.length; i++){
                 String userJob = jobList[i];
-                List<Feed> tmpFeed = feedRepository.findFeedByRelationJob(userJob)
+                List<Feed> tmpFeed = feedRepository.findRelationJob(userJob,pageInfo)
                         .orElseThrow(()->new NotFoundFeedException());
                 for(Feed eachFeed:tmpFeed){
                     feeds.add(eachFeed);
                 }
             }
-        } else if (code.equals(Code.J)) {
-            feeds=feedRepository.findFollowingUserFeed(userIdx)
-                    .orElseThrow(()->new NotFoundFeedException());
+        } else if (code.equals(Code.M)) {
+            feeds=feedRepository.findFollowingUserFeed(userIdx).get();
         } else if (code.equals(Code.F)) {
-            feeds=feedRepository.findFollowingUserFeed(userIdx)
-                    .orElseThrow(()->new NotFoundFollowingUserFeedException());
+            feeds=feedRepository.findFollowingUserFeed(userIdx).get();
         } else{
-            feeds = feedRepository.findAllByOrderByIdDesc();
+            feeds = feedRepository.findAllByOrderByIdDesc(pageInfo).getContent();
         }
 
         feeds.stream().forEach(v->resultFeeds.add(FeedResponseDto.of(v)));
