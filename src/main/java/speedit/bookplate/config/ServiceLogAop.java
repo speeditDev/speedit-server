@@ -1,6 +1,5 @@
 package speedit.bookplate.config;
 
-import com.google.common.base.Stopwatch;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -11,7 +10,7 @@ import org.springframework.util.StopWatch;
 
 @Slf4j
 @Aspect
-@Component //해당 클래스가 스프링 컨테이너에 빈으로 등록되어 있어야 Spring AOP가 적용 가능
+@Component 
 public class ServiceLogAop {
 
     @Around("execution(* speedit.bookplate.service..*.*(..))")
