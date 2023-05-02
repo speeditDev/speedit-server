@@ -59,7 +59,7 @@ public class FeedController {
             }
 
             //jwtService.isExpireAccessToken();
-            long userIdx = 1L;
+            long userIdx = 3L;
 
             return ResponseEntity.ok().body(feedService.getFeed(userIdx,bookIdx,code,job,page));
     }

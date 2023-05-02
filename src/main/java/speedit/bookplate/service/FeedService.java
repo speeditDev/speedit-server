@@ -51,9 +51,9 @@ public class FeedService {
                 }
             }
         } else if (code.equals(Code.M)) {
-            feeds=feedRepository.findFollowingUserFeed(userIdx).get();
+            feeds=feedRepository.findFollowingUserFeed(userIdx,pageInfo).get();
         } else if (code.equals(Code.F)) {
-            feeds=feedRepository.findFollowingUserFeed(userIdx).get();
+            feeds=feedRepository.findFollowingUserFeed(userIdx,pageInfo).get();
         } else{
             feeds = feedRepository.findAllByOrderByIdDesc(pageInfo).getContent();
         }

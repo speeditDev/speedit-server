@@ -22,7 +22,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     List<Feed> findAllBy();
 
     @Query(value = "select f from Feed f where f.user.id in (select t.followingId from Following t where t.followerId=:followerId)")
-    Optional<List<Feed>> findFollowingUserFeed(@Param("followerId")long follwerId);
+    Optional<List<Feed>> findFollowingUserFeed(@Param("followerId")long follwerId,Pageable pageable);
 
     @Query(value = "select f from Feed f where f.user.id =:userId",nativeQuery = true)
     Optional<List<Feed>> findAllByUserId(@Param("userId")long userId);
