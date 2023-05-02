@@ -12,7 +12,6 @@ import speedit.bookplate.repository.*;
 import speedit.bookplate.utils.enumTypes.Code;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +25,7 @@ public class FeedService {
     private final UserRepository userRepository;
     private final FeedLikeRepository feedLikeRepository;
 
-    public List<FeedResponseDto> getFeed(Long userIdx,Long bookIdx,Code code,String job,int page){
+    public List<FeedResponseDto> getFeed(Long userIdx,String category,Code code,String job,int page){
         User user = userRepository.findById(userIdx)
                 .orElseThrow(()->new NotExistUserException());
 
@@ -36,9 +35,15 @@ public class FeedService {
         Pageable pageInfo = PageRequest.of(page,12);
 
         if (code.equals(Code.B)) {
-            Book book = bookRepository.findById(bookIdx)
-                    .orElseThrow(()->new NotFoundBookIdxException());
-            feeds = feedRepository.findFeedByBookId(book.getId(),pageInfo).getContent();
+            String[] categoryList = category.split(",");
+            for(int i=0; i<categoryList.length; i++){
+                String bookCategory = categoryList[i];
+                List<Feed> tmpFeed = feedRepository.findFeedByBookCategory(bookCategory,pageInfo)
+                        .orElseThrow(()->new NotFoundFeedException()).getContent();
+                for(Feed eachFeed:tmpFeed){
+                    feeds.add(eachFeed);
+                }
+            }
         } else if (code.equals(Code.J)) {
             String[] jobList = job.split(",");
             for(int i=0; i<jobList.length; i++){
@@ -49,8 +54,6 @@ public class FeedService {
                     feeds.add(eachFeed);
                 }
             }
-        } else if (code.equals(Code.M)) {
-            feeds=feedRepository.findFollowingUserFeed(userIdx,pageInfo).get();
         } else if (code.equals(Code.F)) {
             feeds=feedRepository.findFollowingUserFeed(userIdx,pageInfo).get();
         } else{

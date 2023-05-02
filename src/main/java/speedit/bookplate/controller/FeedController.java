@@ -50,9 +50,9 @@ public class FeedController {
 
 
     @RequestMapping(value = "",method = RequestMethod.GET)
-    public ResponseEntity<List<FeedResponseDto>> getFeed(@RequestParam(value = "bookIdx",required = false) Long bookIdx,
-                                                            @RequestParam(value = "code",required = false) Code code,
+    public ResponseEntity<List<FeedResponseDto>> getFeed(   @RequestParam(value = "code",required = false) Code code,
                                                             @RequestParam(value = "job",required = false) String job,
+                                                            @RequestParam(value = "category",required = false) String category,
                                                             @RequestParam(value = "page")int page){
             if(!Code.isExistCode(code)){
                 throw new NotExistCodeException();
@@ -61,7 +61,7 @@ public class FeedController {
             //jwtService.isExpireAccessToken();
             long userIdx = 3L;
 
-            return ResponseEntity.ok().body(feedService.getFeed(userIdx,bookIdx,code,job,page));
+            return ResponseEntity.ok().body(feedService.getFeed(userIdx,category,code,job,page));
     }
 
     @RequestMapping(value = "/all",method = RequestMethod.GET)
