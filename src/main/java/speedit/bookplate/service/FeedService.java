@@ -57,7 +57,7 @@ public class FeedService {
         } else if (code.equals(Code.F)) {
             feeds=feedRepository.findFollowingUserFeed(userIdx,pageInfo).get();
         } else{
-            feeds = feedRepository.findAllBy(pageInfo).getContent();
+            feeds = feedRepository.findWithPagination(pageInfo);
         }
 
         feeds.stream().forEach(v->resultFeeds.add(FeedResponseDto.of(v)));
@@ -91,7 +91,7 @@ public class FeedService {
     public List<FeedResponseDto> getFeeds(){
         Pageable pageInfo = PageRequest.of(0,12);
 
-        return feedRepository.findAllBy(pageInfo)
+        return feedRepository.findWithPagination(pageInfo)
                 .stream().map(v -> FeedResponseDto.of(v))
                 .collect(Collectors.toList());
     }
