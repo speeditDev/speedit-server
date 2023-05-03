@@ -28,7 +28,6 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     @Query(value = "select f from Feed f where f.user.id in (select t.followingId from Following t where t.followerId=:followerId)")
     Optional<List<Feed>> findFollowingUserFeed(@Param("followerId")long follwerId,Pageable pageable);
 
-
     @Query(value = "select f from Feed f inner join f.user u on f.user.id=u.id where u.job=:job")
     Optional<List<Feed>> findRelationJob(@Param("job")String job,Pageable pageable);
 
