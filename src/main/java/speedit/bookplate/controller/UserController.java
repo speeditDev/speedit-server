@@ -12,6 +12,7 @@ import speedit.bookplate.service.UserService;
 import speedit.bookplate.utils.JwtService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -99,6 +100,11 @@ public class UserController {
         Long userIdx = jwtService.getUserIdxUsingRefreshToken();
 
         return ResponseEntity.ok(new UserLoginResponse(jwtService.createAccessToken(userIdx),jwtService.createRefreshToken(userIdx)));
+    }
+
+    @RequestMapping(value = "/jpatest",method = RequestMethod.GET)
+    public ResponseEntity<List<String>> jpaTest(){
+        return ResponseEntity.ok(userService.extractFeedNames());
     }
 
 }

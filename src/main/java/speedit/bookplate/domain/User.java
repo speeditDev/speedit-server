@@ -1,11 +1,9 @@
 package speedit.bookplate.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import speedit.bookplate.config.BaseTimeEntity;
 import speedit.bookplate.dto.user.UserCreateRequest;
 import speedit.bookplate.utils.enumTypes.Gender;
-import speedit.bookplate.utils.enumTypes.JobCategory;
 import speedit.bookplate.utils.enumTypes.UserStatus;
 
 import javax.persistence.*;
@@ -61,7 +59,6 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private Boolean isEmailCertified;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Feed> feeds = new ArrayList<>(); //회원 등록 피드 정보
 

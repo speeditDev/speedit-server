@@ -14,6 +14,10 @@ import speedit.bookplate.repository.FollowingRepository;
 import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.utils.JwtService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static speedit.bookplate.domain.User.*;
 
 @Service
@@ -93,6 +97,22 @@ public class UserService {
     public User findUser(final Long userId){
         return userRepository.findById(userId)
                 .orElseThrow(()->new NotExistUserException());
+    }
+
+    public List<String> extractFeedNames(){
+        List<User> users = new ArrayList<>();
+
+        User user1 = userRepository.findById(1l).get();
+        User user2 = userRepository.findById(2l).get();
+        User user3 = userRepository.findById(3l).get();
+
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+
+        return users.stream()
+                .map(a -> a.getFeeds().get(0).getContents())
+                .collect(Collectors.toList());
     }
 
 }

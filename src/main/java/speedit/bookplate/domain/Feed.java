@@ -42,11 +42,9 @@ public class Feed extends BaseTimeEntity {
     private boolean isPrivate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bookId")
     private Book book;
 
     public void like() {likes = likes +1; }
