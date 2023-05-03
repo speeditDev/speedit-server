@@ -70,8 +70,9 @@ public class FollowService {
 
     public List<ProfileResponse> getFollowing(long userIdx){
         List<Following> follows = followingRepository.findByFollowerId(userIdx);
+
         List<ProfileResponse> array = new ArrayList<>();
-        follows.stream().map(v ->
+        follows.stream().forEach(v ->
                 array.add(
                 ProfileResponse.createFollow(userRepository.findById(v.getFollowingId()).get().getId(),
                         userRepository.findById(v.getFollowingId()).get().getProfileImg(),
@@ -87,7 +88,7 @@ public class FollowService {
     public List<ProfileResponse> getFollower(long userIdx) {
         List<Following> follows= followingRepository.findByFollowingId(userIdx);
         List<ProfileResponse> array = new ArrayList<>();
-        follows.stream().map(v ->
+        follows.stream().forEach(v ->
                 array.add(
                         ProfileResponse.createFollow(userRepository.findById(v.getFollowingId()).get().getId(),
                                 userRepository.findById(v.getFollowingId()).get().getProfileImg(),

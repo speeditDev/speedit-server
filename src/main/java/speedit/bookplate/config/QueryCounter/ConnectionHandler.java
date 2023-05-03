@@ -37,7 +37,6 @@ public class ConnectionHandler implements InvocationHandler {
         }
     }
 
-
     private void warnTooManyQuery(){
         if(counter.isWarn()){
             log.warn("====too many query=======");

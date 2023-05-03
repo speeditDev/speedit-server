@@ -40,7 +40,9 @@ public class BookController {
 
     @RequestMapping(value = "/{isbn}",method = RequestMethod.GET)
     public ResponseEntity<BookDetailResDto> getBookDetail(@PathVariable Long isbn){
-        long userIdx = jwtService.getUserIdx();
+        System.out.println(isbn);
+        long userIdx = 1l;
+        //long userIdx = jwtService.getUserIdx();
         return ResponseEntity.ok(bookService.getBookDetail(isbn,userIdx));
     }
 
