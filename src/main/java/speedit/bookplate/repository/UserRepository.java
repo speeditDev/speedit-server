@@ -1,6 +1,8 @@
 package speedit.bookplate.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import speedit.bookplate.domain.User;
 
@@ -22,6 +24,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     Optional<User> findByPersonalEmailAndBirth(String personalEmail,String birth);
 
-    Optional<List<User>> findUserByJob(String job);
+    List<User> findAllBy();
+
 
 }

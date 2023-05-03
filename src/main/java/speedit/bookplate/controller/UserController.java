@@ -101,6 +101,11 @@ public class UserController {
         return ResponseEntity.ok(new UserLoginResponse(jwtService.createAccessToken(userIdx),jwtService.createRefreshToken(userIdx)));
     }
 
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    public void jpatest(){
+        userService.jpaTest();
+    }
+
 
 
 }

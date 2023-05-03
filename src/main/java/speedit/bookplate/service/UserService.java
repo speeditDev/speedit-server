@@ -14,6 +14,10 @@ import speedit.bookplate.repository.FollowingRepository;
 import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.utils.JwtService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static speedit.bookplate.domain.User.*;
 
 @Service
@@ -93,6 +97,14 @@ public class UserService {
     public User findUser(final Long userId){
         return userRepository.findById(userId)
                 .orElseThrow(()->new NotExistUserException());
+    }
+
+    public void jpaTest(){
+
+        List<User> tmpUser = userRepository.findAll();
+
+        tmpUser.stream().map(v-> v.getFeeds().get(0).getContents()).collect(Collectors.toList());
+
     }
 
 
