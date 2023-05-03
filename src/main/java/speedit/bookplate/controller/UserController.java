@@ -8,6 +8,7 @@ import speedit.bookplate.dto.user.*;
 import speedit.bookplate.exception.DuplicateNicknameException;
 import speedit.bookplate.exception.DuplicationEmailException;
 import speedit.bookplate.exception.ExpireTokenException;
+import speedit.bookplate.repository.TeamRepository;
 import speedit.bookplate.service.UserService;
 import speedit.bookplate.utils.JwtService;
 
@@ -21,6 +22,7 @@ public class UserController {
 
     private final UserService userService;
     private final JwtService jwtService;
+    private final TeamRepository teamRepository;
 
     @RequestMapping(value = "/sign-up",method = RequestMethod.POST)
     public ResponseEntity<CommonResponseDto> SingUp(@Valid @RequestBody UserCreateRequest userCreateRequest) {
@@ -105,6 +107,11 @@ public class UserController {
     @RequestMapping(value = "/jpatest",method = RequestMethod.GET)
     public ResponseEntity<List<String>> jpaTest(){
         return ResponseEntity.ok(userService.extractFeedNames());
+    }
+
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    public void Test(){
+        teamRepository.findAll();
     }
 
 }
