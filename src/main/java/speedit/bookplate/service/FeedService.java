@@ -39,7 +39,7 @@ public class FeedService {
             for(int i=0; i<categoryList.length; i++){
                 String bookCategory = categoryList[i];
                 List<Feed> tmpFeed = feedRepository.findFeedByBookCategory(bookCategory,pageInfo)
-                        .orElseThrow(()->new NotFoundFeedException()).getContent();
+                        .orElseThrow(()->new NotFoundFeedException());
                 for(Feed eachFeed:tmpFeed){
                     feeds.add(eachFeed);
                 }
