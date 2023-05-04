@@ -1,6 +1,7 @@
 package speedit.bookplate.domain;
 
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import speedit.bookplate.dto.feed.FeedRequestDto;
 import speedit.bookplate.dto.feed.FeedUpdateRequestDto;
 import speedit.bookplate.utils.enumTypes.Status;
