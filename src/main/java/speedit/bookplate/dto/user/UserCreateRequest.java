@@ -2,7 +2,6 @@ package speedit.bookplate.dto.user;
 
 import lombok.*;
 import speedit.bookplate.utils.enumTypes.Gender;
-import speedit.bookplate.utils.enumTypes.JobCategory;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
