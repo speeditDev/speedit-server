@@ -14,7 +14,6 @@ import speedit.bookplate.repository.FollowingRepository;
 import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.utils.JwtService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
