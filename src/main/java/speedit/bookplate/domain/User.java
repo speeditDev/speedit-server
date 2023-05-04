@@ -1,7 +1,6 @@
 package speedit.bookplate.domain;
 
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
 import speedit.bookplate.config.BaseTimeEntity;
 import speedit.bookplate.dto.user.UserCreateRequest;
 import speedit.bookplate.utils.enumTypes.Gender;
