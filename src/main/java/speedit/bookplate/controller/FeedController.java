@@ -13,7 +13,6 @@ import speedit.bookplate.utils.enumTypes.Code;
 import javax.validation.Valid;
 import java.util.List;
 
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/feed")

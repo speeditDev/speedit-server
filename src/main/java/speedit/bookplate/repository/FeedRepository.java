@@ -23,7 +23,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
 
     Optional<Page<Feed>> findFeedByBookCategory(String bookCategory,Pageable pageable);
 
-    @Query(value = "select f from Feed f left join fetch f.book left join f.user")
+    @Query(value = "select f from Feed f join fetch f.book join fetch f.user")
     List<Feed> findWithPagination(Pageable pageable);
 
     @Query(value = "select f from Feed f where f.user.id in (select t.followingId from Following t where t.followerId=:followerId)")
