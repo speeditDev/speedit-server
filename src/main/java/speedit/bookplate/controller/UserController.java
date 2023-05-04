@@ -101,6 +101,12 @@ public class UserController {
         return ResponseEntity.ok(new UserLoginResponse(jwtService.createAccessToken(userIdx),jwtService.createRefreshToken(userIdx)));
     }
 
+    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    public void search(@RequestParam(value = "page")int page,@RequestParam(value = "job",required = false) String job){
+        long userIdx = jwtService.getUserIdx();
+
+        userService.findBySearchConditions(page,job);
+    }
 
 
 }

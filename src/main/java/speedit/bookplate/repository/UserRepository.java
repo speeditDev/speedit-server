@@ -23,6 +23,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     Optional<User> findByPersonalEmailAndBirth(String personalEmail,String birth);
 
-    Page<User> findAllBy(Pageable pageable);
+    Page<User> findByJob(Pageable pageable);
 
 }

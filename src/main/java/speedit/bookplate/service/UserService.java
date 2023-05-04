@@ -1,6 +1,9 @@
 package speedit.bookplate.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.config.CommonResponseDto;
@@ -94,6 +97,16 @@ public class UserService {
     public User findUser(final Long userId){
         return userRepository.findById(userId)
                 .orElseThrow(()->new NotExistUserException());
+    }
+
+    public void findBySearchConditions(int page,String job){
+
+        Pageable pageInfo = PageRequest.of(page,12);
+
+        final Page<User> userPage = userRepository.findByJob(pageInfo);
+
+
+
     }
 
 
