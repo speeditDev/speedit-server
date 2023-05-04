@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.config.CommonResponseDto;
+import speedit.bookplate.domain.Following;
 import speedit.bookplate.dto.user.*;
 import speedit.bookplate.domain.User;
 import speedit.bookplate.exception.NotExistUserException;
@@ -17,6 +18,9 @@ import speedit.bookplate.repository.FollowingRepository;
 import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.utils.JwtService;
 
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static speedit.bookplate.domain.User.*;
 
@@ -99,15 +103,17 @@ public class UserService {
                 .orElseThrow(()->new NotExistUserException());
     }
 
-    public void findBySearchConditions(int page,String job){
-
+    public List<ProfileResponse> findBySearchConditions(int page,String job,long loggedInId){
         Pageable pageInfo = PageRequest.of(page,12);
 
-        final Page<User> userPage = userRepository.findByJob(pageInfo);
-
-
-
+        final Page<User> userPage = userRepository.findByJob(job,pageInfo);
+        return createProfiles(loggedInId,userPage.getContent());
     }
 
+    public List<ProfileResponse> createProfiles(final Long loggedInId, final List<User> users){
+        return users.stream()
+                .map(v-> ProfileResponse.from(v,isFollowing(loggedInId,v.getId())))
+                .collect(Collectors.toList());
+    }
 
 }

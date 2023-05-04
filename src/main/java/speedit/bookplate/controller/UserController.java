@@ -12,6 +12,7 @@ import speedit.bookplate.service.UserService;
 import speedit.bookplate.utils.JwtService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -102,10 +103,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.GET)
-    public void search(@RequestParam(value = "page")int page,@RequestParam(value = "job",required = false) String job){
+    public List<ProfileResponse> search(@RequestParam(value = "page")int page, @RequestParam(value = "job",required = false) String job){
         long userIdx = jwtService.getUserIdx();
 
-        userService.findBySearchConditions(page,job);
+        return userService.findBySearchConditions(page,job,userIdx);
     }
 
 
