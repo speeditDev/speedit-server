@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.config.CommonResponseDto;
+import speedit.bookplate.domain.Feed;
 import speedit.bookplate.domain.Following;
 import speedit.bookplate.dto.user.*;
 import speedit.bookplate.domain.User;
@@ -106,14 +107,21 @@ public class UserService {
     public List<ProfileResponse> findBySearchConditions(int page,String job,long loggedInId){
         Pageable pageInfo = PageRequest.of(page,12);
 
-        final Page<User> userPage = userRepository.findByJob(job,pageInfo);
-        return createProfiles(loggedInId,userPage.getContent());
+        final List<User> userPage = userRepository.findByJob(job,pageInfo).getContent(); //검색을 통해서 필요한 유저 리스트
+
+        List<Feed> feeds = userRepository.findByFetchJoin(userPage);
+
+        return feeds.stream()
+                .map(v-> v.getUser())
+                .map(v-> ProfileResponse.from(v,false))
+                .collect(Collectors.toList());
     }
 
+    /*
     public List<ProfileResponse> createProfiles(final Long loggedInId, final List<User> users){
         return users.stream()
                 .map(v-> ProfileResponse.from(v,isFollowing(loggedInId,v.getId())))
                 .collect(Collectors.toList());
-    }
+    }*/
 
 }
