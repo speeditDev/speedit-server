@@ -1,6 +1,7 @@
 package speedit.bookplate.domain;
 
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import speedit.bookplate.config.BaseTimeEntity;
 import speedit.bookplate.dto.user.UserCreateRequest;
 import speedit.bookplate.utils.enumTypes.Gender;
@@ -60,6 +61,7 @@ public class User extends BaseTimeEntity {
     private Boolean isEmailCertified;
 
     @OneToMany(mappedBy = "user")
+    @BatchSize(size = 10)
     private List<Feed> feeds = new ArrayList<>(); //회원 등록 피드 정보
 
     public void increaseFollowerCnt(){
