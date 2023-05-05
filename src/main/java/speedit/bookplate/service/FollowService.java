@@ -74,15 +74,16 @@ public class FollowService {
         Pageable pageInfo = PageRequest.of(page,12);
 
         List<Following> follows = followingRepository.findByFollowerId(userIdx);
+
         List<Long> followsId = follows.stream()
                 .map(v->v.getFollowingId())
                 .collect(Collectors.toList());
 
-        List<User> followerUser = userRepository.findByIdIn(followsId,pageInfo).getContent();
+        List<User> followingUser = userRepository.findByIdIn(followsId,pageInfo).getContent();
 
         List<ProfileResponse> array = new ArrayList<>();
 
-        followerUser.stream()
+        followingUser.stream()
                     .forEach(v-> array.add(ProfileResponse.from(v)));
 
         return array;
@@ -91,19 +92,19 @@ public class FollowService {
     public List<ProfileResponse> getFollower(long userIdx,int page) {
         Pageable pageInfo = PageRequest.of(page,12);
 
-        List<Following> follows= followingRepository.findByFollowingId(userIdx,pageInfo).getContent();
+        List<Following> follows= followingRepository.findByFollowingId(userIdx);
+
+        List<Long> followsId = follows.stream()
+                .map(v -> v.getFollowerId())
+                .collect(Collectors.toList());
 
         List<ProfileResponse> array = new ArrayList<>();
-        follows.stream().forEach(v ->
-                array.add(
-                        ProfileResponse.createFollow(userRepository.findById(v.getFollowingId()).get().getId(),
-                                userRepository.findById(v.getFollowingId()).get().getProfileImg(),
-                                userRepository.findById(v.getFollowingId()).get().getNickname(),
-                                userRepository.findById(v.getFollowingId()).get().getJob(),
-                                userRepository.findById(v.getFollowingId()).get().getCompany(),
-                                userRepository.findById(v.getFollowingId()).get().getFollowerCount(),
-                                false))
-        );
+
+        List<User> followerUser = userRepository.findByIdIn(followsId,pageInfo).getContent();
+
+        followerUser.stream()
+                    .forEach(v -> array.add(ProfileResponse.from(v)));
+
         return array;
     }
 
