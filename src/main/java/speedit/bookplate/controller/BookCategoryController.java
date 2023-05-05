@@ -6,10 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import speedit.bookplate.repository.BookRepository;
+import speedit.bookplate.repository.BookCategoryRepository;
 import speedit.bookplate.service.BookCategoryService;
 import speedit.bookplate.domain.BookCategory;
-import speedit.bookplate.repository.BookCategoryRepository;
 import speedit.bookplate.utils.JwtService;
 
 import java.util.List;

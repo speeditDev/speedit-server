@@ -46,14 +46,6 @@ public class BookService {
         return resultList;
     }
 
-    /*
-    public GetDetailResDto getAladinBookDetail(Long bookIdx){
-        aladinFeignClient.getBookDetail(bookIdx);
-        GetDetailResDto res = new GetDetailResDto();
-
-        return res;
-    }*/
-
 
     public BookDetailResDto getBookDetail(long isbn,long userIdx){
         Book book = bookRepository.findByIsbn(isbn)

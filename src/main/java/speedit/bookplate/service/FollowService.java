@@ -29,13 +29,17 @@ public class FollowService {
         validateUserExists(followerId);
         validateUserExists(followingId);
         validateNotFollowing(followerId,followingId);
+
         final Following following = Following.builder()
                 .followerId(followerId)
                 .followingId(followingId)
                 .build();
+
         followingRepository.save(following);
+
         User user = userRepository.findById(followerId)
                 .orElseThrow(()->new NotExistUserException());
+
         user.increaseFollowerCnt();
     }
 
@@ -43,13 +47,17 @@ public class FollowService {
         validateUserExists(followerId);
         validateUserExists(followingId);
         findFollowingRelation(followerId,followingId);
+
         final Following following = Following.builder()
                 .followerId(followerId)
                 .followingId(followingId)
                 .build();
+
         followingRepository.delete(following);
+
         User user = userRepository.findById(followerId)
                 .orElseThrow(()->new NotExistUserException());
+
         user.decreaseFollowerCnt();
     }
 
