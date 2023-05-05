@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import speedit.bookplate.dto.user.UserCreateRequest;
 import speedit.bookplate.dto.user.UserLoginRequest;
+import speedit.bookplate.exception.DuplicateNicknameException;
 import speedit.bookplate.exception.DuplicationEmailException;
 import speedit.bookplate.exception.SameUserException;
 import speedit.bookplate.exception.WrongIdOrPasswordException;
@@ -47,9 +48,9 @@ public class UserServiceTest extends ServiceTest{
     @Test
     public void 닉네임_중복시_예외반환(){
 
+        when(userRepository.existsByNickname(anyString())).thenReturn(true);
 
-
-
+        Assertions.assertThrows(DuplicateNicknameException.class,()->userService.checkNickname("eunyoung"));
     }
 
 
