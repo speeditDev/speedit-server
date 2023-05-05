@@ -3,11 +3,9 @@ package speedit.bookplate.application;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import speedit.bookplate.dto.user.UserCreateRequest;
+import speedit.bookplate.dto.user.UserIdRequest;
 import speedit.bookplate.dto.user.UserLoginRequest;
-import speedit.bookplate.exception.DuplicateNicknameException;
-import speedit.bookplate.exception.DuplicationEmailException;
-import speedit.bookplate.exception.SameUserException;
-import speedit.bookplate.exception.WrongIdOrPasswordException;
+import speedit.bookplate.exception.*;
 import speedit.bookplate.utils.enumTypes.Gender;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -51,6 +49,14 @@ public class UserServiceTest extends ServiceTest{
         when(userRepository.existsByNickname(anyString())).thenReturn(true);
 
         Assertions.assertThrows(DuplicateNicknameException.class,()->userService.checkNickname("eunyoung"));
+    }
+
+    @Test
+    public void 아이디찾기시_존재하지_않는_유저예외반환(){
+
+        when(userRepository.findByPersonalEmailAndBirth(anyString(),anyString())).thenThrow(new WrongEmailOrBirthException());
+
+        Assertions.assertThrows(WrongEmailOrBirthException.class,()->userService.findUserId(new UserIdRequest("skdf","sdf")));
     }
 
 
