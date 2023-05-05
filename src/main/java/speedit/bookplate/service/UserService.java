@@ -88,7 +88,7 @@ public class UserService {
     public void findUserPassword(UserPasswordRequest userPasswordRequest){
         User user = userRepository.findByNicknameAndPersonalEmailAndBirth(userPasswordRequest.getNickname(),userPasswordRequest.getEmail(),userPasswordRequest.getBirth())
                 .orElseThrow(()-> new NotExistUserException());
-
+        user.updatePassword(userPasswordRequest.getPassword());
     }
 
     public void deleteUser(long userIdx){

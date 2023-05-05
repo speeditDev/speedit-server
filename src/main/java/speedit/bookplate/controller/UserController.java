@@ -5,8 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import speedit.bookplate.config.CommonResponseDto;
 import speedit.bookplate.dto.user.*;
-import speedit.bookplate.exception.DuplicateNicknameException;
-import speedit.bookplate.exception.DuplicationEmailException;
 import speedit.bookplate.exception.ExpireTokenException;
 import speedit.bookplate.service.UserService;
 import speedit.bookplate.utils.JwtService;
@@ -55,7 +53,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/password",method = RequestMethod.POST)
-    public ResponseEntity<CommonResponseDto> findPassword(@RequestBody UserPasswordRequest userPasswordRequest){
+    public ResponseEntity<CommonResponseDto> findPassword(@Valid @RequestBody UserPasswordRequest userPasswordRequest){
 
         userService.findUserPassword(userPasswordRequest);
 

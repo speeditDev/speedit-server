@@ -65,7 +65,7 @@ public class UserServiceTest extends ServiceTest{
 
         when(userRepository.findByNicknameAndPersonalEmailAndBirth(anyString(),anyString(),anyString())).thenThrow(new NotExistUserException());
 
-        Assertions.assertThrows(NotExistUserException.class,()->userService.findUserPassword(new UserPasswordRequest("sdf","skdf","skdjf")));
+        Assertions.assertThrows(NotExistUserException.class,()->userService.findUserPassword(new UserPasswordRequest("sdf","skdf","skdjf","1234")));
     }
 
 

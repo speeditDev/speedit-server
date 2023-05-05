@@ -76,6 +76,8 @@ public class User extends BaseTimeEntity {
         this.status = UserStatus.INACTIVE;
     }
 
+    public void updatePassword(final String password) {this.password = password;}
+
     public void update(final User updateUser){
         updateNickname(updateUser.nickname);
         updateProfileImg(updateUser.profileImg);
