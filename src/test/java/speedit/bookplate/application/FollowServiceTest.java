@@ -2,9 +2,11 @@ package speedit.bookplate.application;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import speedit.bookplate.exception.AlreadyFollowingException;
 import speedit.bookplate.exception.NotExistUserException;
 
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
 public class FollowServiceTest extends ServiceTest{
@@ -15,6 +17,22 @@ public class FollowServiceTest extends ServiceTest{
         when(userRepository.existsById(anyLong())).thenReturn(false);
 
         Assertions.assertThrows(NotExistUserException.class,()->followService.follow(1l,2l));
+    }
+
+    @Test
+    public void 이미_팔로잉했으면_팔로잉_불가능하도록_예외_반환(){
+        //given
+        Long followerId = 1l;
+        Long followingId = 2l;
+        given(userRepository.existsById(followerId)).willReturn(true);
+        given(userRepository.existsById(followingId)).willReturn(true);
+
+
+        //when
+        when(followingRepository.existsByFollowerIdAndFollowingId(anyLong(),anyLong())).thenThrow(new AlreadyFollowingException());
+
+        //then
+        Assertions.assertThrows(AlreadyFollowingException.class,()->followService.follow(followerId,followingId));
     }
 
 
