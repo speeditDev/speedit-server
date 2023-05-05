@@ -22,9 +22,10 @@ public class UserResponse {
     private boolean isEmailCertified;
     private String introduction;
     private int followerCount;
+    private int followingCount;
     private boolean following;
 
-    public static UserResponse of(final User user, final boolean following){
+    public static UserResponse of(final User user, final boolean following,final int followingCount){
         return UserResponse.builder()
                 .nickname(user.getNickname())
                 .profileImg(user.getProfileImg())
@@ -36,6 +37,7 @@ public class UserResponse {
                 .isEmailCertified(user.getIsEmailCertified())
                 .introduction(user.getIntroduction())
                 .followerCount(user.getFollowerCount())
+                .followingCount(followingCount)
                 .following(following)
                 .build();
     }

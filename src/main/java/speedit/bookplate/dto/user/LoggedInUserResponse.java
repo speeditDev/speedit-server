@@ -20,8 +20,9 @@ public class LoggedInUserResponse {
     private boolean isEmailCertified;
     private String introduction;
     private int followerCount;
+    private int followingCount;
 
-    public static LoggedInUserResponse from(final User user){
+    public static LoggedInUserResponse from(final User user,final int followingCount){
         return LoggedInUserResponse.builder()
                 .profileImg(user.getProfileImg())
                 .nickname(user.getNickname())
@@ -33,6 +34,7 @@ public class LoggedInUserResponse {
                 .isEmailCertified(false)
                 .introduction(user.getIntroduction())
                 .followerCount(user.getFollowerCount())
+                .followingCount(followingCount)
                 .build();
     }
 }

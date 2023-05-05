@@ -60,7 +60,6 @@ public class UserController {
         return ResponseEntity.ok().body(new CommonResponseDto());
     }
 
-
     @RequestMapping(value = "/profile",method = RequestMethod.GET)
     public ResponseEntity<LoggedInUserResponse> getLoggedInUserProfile(){
         jwtService.isExpireAccessToken();

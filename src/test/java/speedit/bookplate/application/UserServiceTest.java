@@ -2,12 +2,14 @@ package speedit.bookplate.application;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import speedit.bookplate.domain.User;
 import speedit.bookplate.dto.user.UserCreateRequest;
 import speedit.bookplate.dto.user.UserIdRequest;
 import speedit.bookplate.dto.user.UserLoginRequest;
 import speedit.bookplate.dto.user.UserPasswordRequest;
 import speedit.bookplate.exception.*;
 import speedit.bookplate.utils.enumTypes.Gender;
+import speedit.bookplate.utils.enumTypes.UserStatus;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -68,5 +70,18 @@ public class UserServiceTest extends ServiceTest{
         Assertions.assertThrows(NotExistUserException.class,()->userService.findUserPassword(new UserPasswordRequest("sdf","skdf","skdjf","1234")));
     }
 
+    /*
+    @Test
+    public void 회원을_id값을_통해서_탈퇴한다(){
+        //given
+        userService.SignUp(new UserCreateRequest("test123","eun123!!","https://sdf.png","19980923",Gender.W,"developer","kakao","eunsd@naver.com"));
+
+        //when
+        User user = userRepository.findByNicknameAndPassword("test123","eun123!!").get();
+        userService.deleteUser(user.getId());
+
+        //then
+        Assertions.assertEquals(user.getStatus(), UserStatus.INACTIVE);
+    }*/
 
 }

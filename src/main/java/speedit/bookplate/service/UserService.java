@@ -72,11 +72,15 @@ public class UserService {
     public UserResponse find(final Long targetId,final Long loggedInId){
         final User user = findUser(targetId);
         final boolean following = isFollowing(loggedInId,targetId);
-        return UserResponse.of(user,following);
+        return UserResponse.of(user,following,followerCnt(targetId));
     }
 
     private boolean isFollowing(final Long followerId,final Long followingId){
         return followingRepository.existsByFollowerIdAndFollowingId(followerId,followingId);
+    }
+
+    private int followerCnt(final Long userId){
+        return followingRepository.findByFollowerId(userId).size();
     }
 
     public UserIdResponse findUserId(UserIdRequest userIdRequest){
@@ -104,7 +108,7 @@ public class UserService {
 
     public LoggedInUserResponse getUserProfile(long userIdx){
         User user = findUser(userIdx);
-        return LoggedInUserResponse.from(user);
+        return LoggedInUserResponse.from(user,followerCnt(userIdx));
     }
 
     public User findUser(final Long userId){
