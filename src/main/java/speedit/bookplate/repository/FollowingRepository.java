@@ -13,7 +13,6 @@ public interface FollowingRepository extends JpaRepository<Following,Long> {
     boolean existsByFollowerIdAndFollowingId(Long followerId,Long followingId);
     List<Following> findByFollowerId(Long followerId);
     Page<Following> findByFollowingId(Long followingId,Pageable pageable);
-    //List<Following> findByFollowerId(Long followerId);
     Optional<Following> findByFollowingIdAndAndFollowerId(Long followingId,Long followerId);
     List<Following> findByFollowerIdAndFollowingIdIn(Long followerId, List<Long> followingIds);
 }

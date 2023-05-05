@@ -38,7 +38,7 @@ public class FollowService {
                 .orElseThrow(()->new NotExistUserException());
         user.increaseFollowerCnt();
     }
-    
+
     public void unfollow(long followerId,long followingId){
         validateUserExists(followerId);
         validateUserExists(followingId);
