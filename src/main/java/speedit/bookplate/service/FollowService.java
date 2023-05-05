@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FollowService {
 
     private final FollowingRepository followingRepository;
     private final UserRepository userRepository;
 
-    @Transactional
     public void follow(long followerId,long followingId){
         validateUserExists(followerId);
         validateUserExists(followingId);
@@ -38,8 +38,7 @@ public class FollowService {
                 .orElseThrow(()->new NotExistUserException());
         user.increaseFollowerCnt();
     }
-
-    @Transactional
+    
     public void unfollow(long followerId,long followingId){
         validateUserExists(followerId);
         validateUserExists(followingId);
