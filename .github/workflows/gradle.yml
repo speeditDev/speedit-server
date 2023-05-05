@@ -43,9 +43,3 @@ jobs:
 
     - name: 테스트 코드 실행
       run: ./gradlew --info test
-
-    - name: 테스트 결과 시각화
-      uses: EnricoMi/publish-unit-test-result-action@v1
-      if: ${{ always() }}
-      with:
-        files: build/test-results/**/*.xml
