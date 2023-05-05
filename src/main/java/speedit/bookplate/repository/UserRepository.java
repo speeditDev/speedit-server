@@ -30,6 +30,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     Page<User> findByJob(String job,Pageable pageable);
 
+    Page<User> findByIdIn(List<Long> userIdArr,Pageable pageable);
+
     @Query("select f from Feed f join fetch f.book where f.user in :userArr")
     List<Feed> findByFetchJoin(List<User> userArr);
 
