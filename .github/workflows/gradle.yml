@@ -34,3 +34,6 @@ jobs:
         arguments: build
     - name: Build with Gradle
       run: ./gradlew clean build
+      
+    - name: 테스트 코드 실행
+      run: ./gradlew --info test
