@@ -25,10 +25,10 @@ public abstract class ServiceTest {
     @MockBean
     protected UserRepository userRepository;
 
-    @InjectMocks
+    @Autowired
     protected BookService bookService;
 
-    @Mock
+    @MockBean
     protected BookRepository bookRepository;
 
     @Mock

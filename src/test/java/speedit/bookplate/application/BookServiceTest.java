@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest extends ServiceTest{
 
-    /*
+    
     @Test
     @DisplayName("책 DB에 Insert시 이미 존재하는 책이면 DuplicateBookException 에러 반환하도록 수정")
     void 책생성_이미존재하는책(){
@@ -36,7 +36,7 @@ public class BookServiceTest extends ServiceTest{
         when(bookRepository.findByIsbn(any())).thenThrow(new NotFoundBookIdxException());
 
         Assertions.assertThrows(NotFoundBookIdxException.class,()->bookService.getBookDetail(1l,1l));
-    }*/
+    }
 
 
     @Test
