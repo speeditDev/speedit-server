@@ -9,10 +9,7 @@ import speedit.bookplate.config.CommonResponseDto;
 import speedit.bookplate.domain.Feed;
 import speedit.bookplate.dto.user.*;
 import speedit.bookplate.domain.User;
-import speedit.bookplate.exception.NotExistUserException;
-import speedit.bookplate.exception.SameUserException;
-import speedit.bookplate.exception.WrongEmailOrBirthException;
-import speedit.bookplate.exception.WrongIdOrPasswordException;
+import speedit.bookplate.exception.*;
 import speedit.bookplate.repository.FollowingRepository;
 import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.utils.JwtService;
@@ -57,11 +54,19 @@ public class UserService {
     }
 
     public boolean checkNickname(String nickname){
-        return userRepository.existsByNickname(nickname);
+
+        if(userRepository.existsByNickname(nickname))
+            throw new DuplicateNicknameException();
+
+        return false;
     }
 
     public boolean checkEmail(String email) {
-        return userRepository.existsByPersonalEmail(email);
+
+        if(userRepository.existsByPersonalEmail(email))
+            throw new DuplicationEmailException();
+
+        return false;
     }
 
     public UserResponse find(final Long targetId,final Long loggedInId){

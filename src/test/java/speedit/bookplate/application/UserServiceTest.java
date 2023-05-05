@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import speedit.bookplate.dto.user.UserCreateRequest;
 import speedit.bookplate.dto.user.UserLoginRequest;
+import speedit.bookplate.exception.DuplicationEmailException;
 import speedit.bookplate.exception.SameUserException;
 import speedit.bookplate.exception.WrongIdOrPasswordException;
 import speedit.bookplate.utils.enumTypes.Gender;
@@ -33,6 +34,22 @@ public class UserServiceTest extends ServiceTest{
         when(userRepository.findByNicknameAndPassword(anyString(),anyString())).thenThrow(new WrongIdOrPasswordException());
 
         Assertions.assertThrows(WrongIdOrPasswordException.class,()->userService.login(request));
+    }
+
+    @Test
+    public void 이메일_중복시_예외반환(){
+
+        when(userRepository.existsByPersonalEmail(anyString())).thenReturn(true);
+
+        Assertions.assertThrows(DuplicationEmailException.class,()-> userService.checkEmail("eun0232323@naver.com"));
+    }
+
+    @Test
+    public void 닉네임_중복시_예외반환(){
+
+
+
+
     }
 
 

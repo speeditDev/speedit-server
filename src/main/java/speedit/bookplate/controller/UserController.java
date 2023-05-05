@@ -35,18 +35,15 @@ public class UserController {
     @RequestMapping(value = "/nickname",method = RequestMethod.POST)
     public ResponseEntity<CommonResponseDto> checkNickname(@RequestBody UserNicknameRequest userNicknameRequest){
 
-        if(userService.checkNickname(userNicknameRequest.getNickname())){
-            throw new DuplicateNicknameException();
-        }
+        userService.checkNickname(userNicknameRequest.getNickname());
+
         return ResponseEntity.ok().body(new CommonResponseDto());
     }
 
     @RequestMapping(value = "/email",method = RequestMethod.POST)
     public ResponseEntity<CommonResponseDto> checkEmail(@RequestBody UserEmailRequest userEmailRequest){
 
-        if(userService.checkEmail(userEmailRequest.getEmail())){
-            throw new DuplicationEmailException();
-        }
+        userService.checkEmail(userEmailRequest.getEmail());
 
         return ResponseEntity.ok().body(new CommonResponseDto());
     }
