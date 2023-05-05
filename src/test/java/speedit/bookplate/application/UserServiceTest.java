@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import speedit.bookplate.dto.user.UserCreateRequest;
 import speedit.bookplate.dto.user.UserIdRequest;
 import speedit.bookplate.dto.user.UserLoginRequest;
+import speedit.bookplate.dto.user.UserPasswordRequest;
 import speedit.bookplate.exception.*;
 import speedit.bookplate.utils.enumTypes.Gender;
 
@@ -57,6 +58,14 @@ public class UserServiceTest extends ServiceTest{
         when(userRepository.findByPersonalEmailAndBirth(anyString(),anyString())).thenThrow(new WrongEmailOrBirthException());
 
         Assertions.assertThrows(WrongEmailOrBirthException.class,()->userService.findUserId(new UserIdRequest("skdf","sdf")));
+    }
+
+    @Test
+    public void 비밀번호찾기시_존재하지_않는_유저예외반환(){
+
+        when(userRepository.findByNicknameAndPersonalEmailAndBirth(anyString(),anyString(),anyString())).thenThrow(new NotExistUserException());
+
+        Assertions.assertThrows(NotExistUserException.class,()->userService.findUserPassword(new UserPasswordRequest("sdf","skdf","skdjf")));
     }
 
 

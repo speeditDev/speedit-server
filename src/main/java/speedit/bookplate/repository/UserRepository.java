@@ -26,6 +26,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     Optional<User> findByPersonalEmailAndBirth(String personalEmail,String birth);
 
+    Optional<User> findByNicknameAndPersonalEmailAndBirth(String nickname,String personalEmail,String birth);
+
     Page<User> findByJob(String job,Pageable pageable);
 
     @Query("select f from Feed f join fetch f.book where f.user in :userArr")

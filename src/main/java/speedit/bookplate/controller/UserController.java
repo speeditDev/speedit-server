@@ -54,6 +54,14 @@ public class UserController {
         return ResponseEntity.ok(userService.findUserId(userIdRequest));
     }
 
+    @RequestMapping(value = "/password",method = RequestMethod.POST)
+    public ResponseEntity<CommonResponseDto> findPassword(@RequestBody UserPasswordRequest userPasswordRequest){
+
+        userService.findUserPassword(userPasswordRequest);
+
+        return ResponseEntity.ok().body(new CommonResponseDto());
+    }
+
 
     @RequestMapping(value = "/profile",method = RequestMethod.GET)
     public ResponseEntity<LoggedInUserResponse> getLoggedInUserProfile(){
