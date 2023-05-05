@@ -8,8 +8,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.repository.BookLikeRepository;
 import speedit.bookplate.repository.BookRepository;
+import speedit.bookplate.repository.FollowingRepository;
 import speedit.bookplate.repository.UserRepository;
 import speedit.bookplate.service.BookService;
+import speedit.bookplate.service.FollowService;
 import speedit.bookplate.service.UserService;
 
 
@@ -31,6 +33,12 @@ public abstract class ServiceTest {
 
     @Mock
     protected BookLikeRepository bookLikeRepository;
+
+    @MockBean
+    protected FollowingRepository followingRepository;
+
+    @Autowired
+    protected FollowService followService;
 
 
 }
