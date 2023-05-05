@@ -121,7 +121,7 @@ public class User extends BaseTimeEntity {
         this.isEmailCertified = isEmailCertified;
     }
 
-    public static User SignUpUser(UserCreateRequest userCreateRequest){
+    public static User of(UserCreateRequest userCreateRequest){
         return User.builder()
                 .birth(userCreateRequest.getBirth())
                 .profileImg(userCreateRequest.getProfileImg())

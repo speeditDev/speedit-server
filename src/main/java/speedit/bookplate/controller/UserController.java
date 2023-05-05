@@ -46,7 +46,6 @@ public class UserController {
         return ResponseEntity.ok().body(new CommonResponseDto());
     }
 
-
     @RequestMapping(value = "/id",method = RequestMethod.POST)
     public ResponseEntity<UserIdResponse> findNickname(@RequestBody UserIdRequest userIdRequest){
         return ResponseEntity.ok(userService.findUserId(userIdRequest));

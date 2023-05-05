@@ -17,8 +17,6 @@ import speedit.bookplate.utils.JwtService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static speedit.bookplate.domain.User.*;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -33,7 +31,7 @@ public class UserService {
         if(userRepository.existsByNicknameAndBirthAndJob(userCreateRequest.getNickname(), userCreateRequest.getBirth(), userCreateRequest.getJob()))
             throw new SameUserException();
 
-        userRepository.save(SignUpUser(userCreateRequest));
+        userRepository.save(User.of(userCreateRequest));
 
         return new CommonResponseDto();
     }
