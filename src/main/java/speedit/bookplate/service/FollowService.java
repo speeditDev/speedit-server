@@ -1,6 +1,8 @@
 package speedit.bookplate.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.domain.User;
@@ -68,8 +70,10 @@ public class FollowService {
                 .orElseThrow(()->new NotFollowingException());
     }
 
-    public List<ProfileResponse> getFollowing(long userIdx){
-        List<Following> follows = followingRepository.findByFollowerId(userIdx);
+    public List<ProfileResponse> getFollowing(long userIdx,int page){
+        Pageable pageInfo = PageRequest.of(page,12);
+
+        List<Following> follows = followingRepository.findByFollowerId(userIdx,pageInfo).getContent();
 
         List<ProfileResponse> array = new ArrayList<>();
         follows.stream().forEach(v ->
@@ -85,8 +89,11 @@ public class FollowService {
         return array;
     }
 
-    public List<ProfileResponse> getFollower(long userIdx) {
-        List<Following> follows= followingRepository.findByFollowingId(userIdx);
+    public List<ProfileResponse> getFollower(long userIdx,int page) {
+        Pageable pageInfo = PageRequest.of(page,12);
+
+        List<Following> follows= followingRepository.findByFollowingId(userIdx,pageInfo).getContent();
+
         List<ProfileResponse> array = new ArrayList<>();
         follows.stream().forEach(v ->
                 array.add(

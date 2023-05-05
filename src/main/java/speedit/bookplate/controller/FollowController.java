@@ -40,22 +40,22 @@ public class FollowController {
 
 
     @RequestMapping(value = "/followings",method = RequestMethod.GET)
-    public ResponseEntity<List<ProfileResponse>> getByFollowings(){
+    public ResponseEntity<List<ProfileResponse>> getByFollowings(@RequestParam(value = "page")int page){
         jwtService.isExpireAccessToken();
         long userId = jwtService.getUserIdx();
 
-        List<ProfileResponse> profileResponses = followService.getFollowing(userId);
+        List<ProfileResponse> profileResponses = followService.getFollowing(userId,page);
 
         return ResponseEntity.ok(profileResponses);
     }
 
 
-    @RequestMapping(value = "/follower",method = RequestMethod.GET)
-    public ResponseEntity<List<ProfileResponse>> getFollower(){
+    @RequestMapping(value = "/followers",method = RequestMethod.GET)
+    public ResponseEntity<List<ProfileResponse>> getFollower(@RequestParam(value = "page")int page){
         jwtService.isExpireAccessToken();
         long userId = jwtService.getUserIdx();
 
-        List<ProfileResponse> profileResponses = followService.getFollower(userId);
+        List<ProfileResponse> profileResponses = followService.getFollower(userId,page);
 
         return ResponseEntity.ok().body(profileResponses);
     }
