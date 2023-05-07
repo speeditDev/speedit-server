@@ -105,9 +105,9 @@ public class UserController {
 
     @RequestMapping(value = "/search",method = RequestMethod.GET)
     public List<ProfileResponse> search(@RequestParam(value = "page")int page, @RequestParam(value = "job",required = false) String job){
-        long userIdx = jwtService.getUserIdx();
+        //long userIdx = jwtService.getUserIdx();
 
-        return userService.findBySearchConditions(page,job,userIdx);
+        return userService.findBySearchConditions(page,job,1l);
     }
 
 

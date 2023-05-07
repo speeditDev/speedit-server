@@ -10,8 +10,10 @@ import speedit.bookplate.domain.Feed;
 import speedit.bookplate.dto.user.*;
 import speedit.bookplate.domain.User;
 import speedit.bookplate.exception.*;
+import speedit.bookplate.repository.FeedRepository;
 import speedit.bookplate.repository.FollowingRepository;
 import speedit.bookplate.repository.UserRepository;
+import speedit.bookplate.repository.UserRepositoryImpl;
 import speedit.bookplate.utils.JwtService;
 
 import java.util.List;
@@ -25,6 +27,8 @@ public class UserService {
     private final JwtService jwtService;
     private final UserRepository userRepository;
     private final FollowingRepository followingRepository;
+    private final UserRepositoryImpl userRepositoryImpl;
+    private final FeedRepository feedRepository;
 
     public CommonResponseDto SignUp(UserCreateRequest userCreateRequest){
 
@@ -117,9 +121,14 @@ public class UserService {
     public List<ProfileResponse> findBySearchConditions(int page,String job,long loggedInId){
         Pageable pageInfo = PageRequest.of(page,12);
 
-        final List<User> userPage = userRepository.findByJob(job,pageInfo).getContent(); //검색을 통해서 필요한 유저 리스트
+        //final List<User> userPage = userRepository.findByJob(job,pageInfo).getContent(); //검색을 통해서 필요한 유저 리스트
 
-        List<Feed> feeds = userRepository.findByFetchJoin(userPage);
+        final List<User> userPage = userRepositoryImpl.findByJobUsingQuerydsl(job,pageInfo);
+
+        System.out.println("**********");
+        System.out.println(userPage.size());
+
+        List<Feed> feeds = feedRepository.findByFetchJoin(userPage);
 
         return feeds.stream()
                 .map(v-> v.getUser())
@@ -133,5 +142,6 @@ public class UserService {
                 .map(v-> ProfileResponse.from(v,isFollowing(loggedInId,v.getId())))
                 .collect(Collectors.toList());
     }*/
+
 
 }

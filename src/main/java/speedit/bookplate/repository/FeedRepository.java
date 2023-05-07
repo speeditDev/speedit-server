@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import speedit.bookplate.domain.Book;
 import speedit.bookplate.domain.Feed;
+import speedit.bookplate.domain.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,5 +31,8 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
 
     @Query(value = "select f from Feed f join fetch f.user u join fetch f.book b where u.job=:job")
     Optional<List<Feed>> findRelationJob(@Param("job")String job,Pageable pageable);
+
+    @Query("select f from Feed f join fetch f.book where f.user in :userArr")
+    List<Feed> findByFetchJoin(List<User> userArr);
 
 }
