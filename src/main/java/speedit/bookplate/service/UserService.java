@@ -125,9 +125,6 @@ public class UserService {
 
         final List<User> userPage = userRepositoryImpl.findByJobUsingQuerydsl(job,pageInfo);
 
-        System.out.println("**********");
-        System.out.println(userPage.size());
-
         List<Feed> feeds = feedRepository.findByFetchJoin(userPage);
 
         return feeds.stream()
