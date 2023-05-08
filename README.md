@@ -47,11 +47,18 @@
   - gradle  
   - spring boot 2.7    
 
-    
+<br>
+
+<br> 
 
 ## :heavy_check_mark: Architecture
-<img src="https://user-images.githubusercontent.com/70764912/230703971-7dde2e32-8cfb-4e54-aed9-a17baed78944.jpeg" width="800" height="400"/>
+<img src="https://user-images.githubusercontent.com/70764912/236783839-990d3745-77fe-4b18-a12f-8ce267844ee4.jpeg" width="800" height="400"/>
 
+
+
+<br>
+
+<br> 
 
 ## :heavy_check_mark: ERD
-<img src="https://user-images.githubusercontent.com/70764912/230944037-a57d114c-5b19-4c9b-99d0-d67b4a08d42f.png" width="700" height="500"/>
+<img src="https://user-images.githubusercontent.com/70764912/230944037-a57d114c-5b19-4c9b-99d0-d67b4a08d42f.png" width="700" height="600"/>
