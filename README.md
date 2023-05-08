@@ -9,7 +9,6 @@
 > 독서를 통해서 성장하고 싶은 직장인들이 도서 문장을 기록하고 다양한 직무/직업별로 공유를 통해서  
 > 책 문장을 통해서 다양한 직업의 사람들과 소통 & 성장하는 서비스입니다.
 
-
 <br>
 
 
@@ -32,14 +31,27 @@
 `Mysql 8.0`,`Spring Data JPA`  
 `Jenkins`, `Github action`  
 `Docker`, `Docker hub`   
-`Feign Client`  
+`Feign Client`,`Swagger`  
 `AWS EC2`,`AWS S3`,`AWS RDS`  
-`Redis`
+`Redis`,`Nginx`,`Querydsl`,  
+`JWT`
 
+<br>
 
-## :mag: Architecture
+<br>
+
+## :heavy_check_mark: 개발 환경    
+
+- backend
+  - java 8  
+  - gradle  
+  - spring boot 2.7    
+
+    
+
+## :heavy_check_mark: Architecture
 <img src="https://user-images.githubusercontent.com/70764912/230703971-7dde2e32-8cfb-4e54-aed9-a17baed78944.jpeg" width="800" height="400"/>
 
 
-## :mag: ERD
+## :heavy_check_mark: ERD
 <img src="https://user-images.githubusercontent.com/70764912/230944037-a57d114c-5b19-4c9b-99d0-d67b4a08d42f.png" width="700" height="500"/>
