@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface UserRepositoryCustom {
     List<User> findByJobUsingQuerydsl(String job, Pageable pageable);
+    List<Long> findIdByJobUsingQuerydsl(String job,Pageable pageable);
 }

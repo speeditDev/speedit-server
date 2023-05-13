@@ -24,6 +24,7 @@ public class FeedService {
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
     private final FeedLikeRepository feedLikeRepository;
+    private final UserRepositoryImpl userRepositoryImpl;
 
     public List<FeedResponseDto> getFeed(Long userIdx,String category,Code code,String job,int page){
         User user = userRepository.findById(userIdx)
@@ -31,6 +32,7 @@ public class FeedService {
 
         List<Feed> feeds = new ArrayList<>();
         List<FeedResponseDto> resultFeeds = new ArrayList<>();
+        List<Long> userIds = new ArrayList<>();
 
         Pageable pageInfo = PageRequest.of(page,12);
 
@@ -48,11 +50,13 @@ public class FeedService {
             String[] jobList = job.split(",");
             for(int i=0; i<jobList.length; i++){
                 String userJob = jobList[i];
-                List<Feed> tmpFeed = feedRepository.findRelationJob(userJob,pageInfo)
+
+                userRepositoryImpl.findIdByJobUsingQuerydsl(userJob,pageInfo)
+                                .stream().forEach(v->userIds.add(v));
+
+                feeds = feedRepository.findRelationJobByFetchJoin(userIds,pageInfo)
                         .orElseThrow(()->new NotFoundFeedException());
-                for(Feed eachFeed:tmpFeed){
-                    feeds.add(eachFeed);
-                }
+
             }
         } else if (code.equals(Code.F)) {
             feeds=feedRepository.findFollowingUserFeed(userIdx,pageInfo).get();

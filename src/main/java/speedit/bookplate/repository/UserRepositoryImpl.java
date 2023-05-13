@@ -38,6 +38,21 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
         return userResult;
     }
 
+    @Override
+    public List<Long> findIdByJobUsingQuerydsl(String job, Pageable pageable) {
+        final List<Long> query = jpaQueryFactory.select(user.id)
+                .from(user)
+                .where(user.job.like(job))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize()+1)
+                .fetch();
+
+        if(query.size()==0){
+            return new ArrayList<>();
+        }
+
+        return query;
+    }
 
 
 }

@@ -35,4 +35,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     @Query("select f from Feed f join fetch f.book where f.user in :userArr")
     List<Feed> findByFetchJoin(List<User> userArr);
 
+    @Query(value = "select f from Feed f join fetch f.book where f.user.id in :userArr")
+    Optional<List<Feed>> findRelationJobByFetchJoin(List<Long> userArr,Pageable pageable);
+
 }
