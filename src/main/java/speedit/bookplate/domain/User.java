@@ -56,7 +56,7 @@ public class User extends BaseTimeEntity {
     private String companyEmail;  //회사 이메일
 
     @Column(name = "follower_count",nullable = false)
-    @Formula("(SELECT COUNT(1) FROM Following f WHERE f.following_id=id)")
+    @Formula("(SELECT COUNT(1) FROM following f WHERE f.following_id=id)")
     private int followerCount;
 
     @Column(nullable = false)
