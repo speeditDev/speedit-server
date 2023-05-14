@@ -2,6 +2,7 @@ package speedit.bookplate.domain;
 
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Formula;
 import speedit.bookplate.dto.feed.FeedRequestDto;
 import speedit.bookplate.dto.feed.FeedUpdateRequestDto;
 import speedit.bookplate.utils.enumTypes.Status;
@@ -36,6 +37,7 @@ public class Feed extends BaseTimeEntity {
     private String color2;
 
     @Column(nullable = false)
+    @Formula("(SELECT COUNT(1) FROM FeedLike fl WHERE fl.feed_Id=id)")
     private Long likes;
 
     private String sort;
