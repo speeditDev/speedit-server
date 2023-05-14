@@ -2,6 +2,7 @@ package speedit.bookplate.domain;
 
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Formula;
 import speedit.bookplate.config.BaseTimeEntity;
 import speedit.bookplate.dto.user.UserCreateRequest;
 import speedit.bookplate.utils.enumTypes.Gender;
@@ -55,6 +56,7 @@ public class User extends BaseTimeEntity {
     private String companyEmail;  //회사 이메일
 
     @Column(name = "follower_count",nullable = false)
+    @Formula("(SELECT COUNT(1) FROM Following f WHERE f.following_id=id)")
     private int followerCount;
 
     @Column(nullable = false)
