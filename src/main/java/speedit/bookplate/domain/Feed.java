@@ -37,7 +37,7 @@ public class Feed extends BaseTimeEntity {
     private String color2;
 
     @Column(nullable = false)
-    @Formula("(SELECT COUNT(1) FROM feedLike fl WHERE fl.feed_Id=id)")
+    @Formula("(SELECT COUNT(1) FROM feed_like fl WHERE fl.feed_Id=id)")
     private Long likes;
 
     private String sort;
