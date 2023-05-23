@@ -26,7 +26,7 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     @Query(value = "select f from Feed f join fetch f.book join fetch f.user")
     List<Feed> findWithPagination(Pageable pageable);
 
-    @Query(value = "select f from Feed f join fetch f.book where f.user.id in (select t.followingId from Following t where t.followerId=:followerId) order by f.likes")
+    @Query(value = "select *,(select count(1) from feed_like as fl where fl.id = f.id) as f_count from feed f inner join book where f.user_id in (select t.following_id from following as t where t.follower_id=:followerId) order by f_count desc, f.id desc",nativeQuery = true)
     Optional<List<Feed>> findFollowingUserFeed(@Param("followerId")long follwerId,Pageable pageable);
 
     @Query(value = "select f from Feed f join fetch f.user u join fetch f.book b where u.job=:job")

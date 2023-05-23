@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import speedit.bookplate.config.CommonResponseDto;
+import speedit.bookplate.config.RedisFactory;
 import speedit.bookplate.domain.Feed;
 import speedit.bookplate.dto.user.*;
 import speedit.bookplate.domain.User;
@@ -29,6 +30,7 @@ public class UserService {
     private final FollowingRepository followingRepository;
     private final UserRepositoryImpl userRepositoryImpl;
     private final FeedRepository feedRepository;
+    private final RedisFactory redisFactory;
 
     public CommonResponseDto SignUp(UserCreateRequest userCreateRequest){
 
@@ -48,9 +50,9 @@ public class UserService {
 
         String accessToken = jwtService.createAccessToken(userIdx);
         String refreshToken = jwtService.createRefreshToken(userIdx);
+        redisFactory.setRedisRefreshToken(userLoginRequest.getNickname(),refreshToken);
 
         UserLoginResponse userLoginResponse = new UserLoginResponse(accessToken,refreshToken);
-        loginUser.setRefreshToken(refreshToken);
 
         return userLoginResponse;
     }
