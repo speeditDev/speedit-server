@@ -16,7 +16,7 @@ import speedit.bookplate.utils.JwtService;
 import javax.mail.MessagingException;
 
 @RestController
-@Api(tags = {"9. Mail"})
+@Api(tags = {"6. Mail"})
 @RequiredArgsConstructor
 @RequestMapping("")
 public class MailController {
@@ -25,13 +25,6 @@ public class MailController {
     private final JwtService jwtService;
 
     @ApiOperation(value = "이메일 인증메일 전송",notes = "입력된 이메일로 인증 메일 전송")
-    @ApiResponses({
-            @ApiResponse(code=200,message = "요청에 성공하였습니다."),
-            @ApiResponse(code=401,message = "JWT를 입력해주세요."),
-            @ApiResponse(code=402,message = "유효하지 않은 JWT입니다."),
-            @ApiResponse(code = 415,message = "회사 이메일로만 인증이 가능합니다."),
-            @ApiResponse(code = 416,message = "이메일 양식에 맞게 작성해 주세요.")
-    })
     @RequestMapping(value = "/email",method = RequestMethod.POST)
     public ResponseEntity<CommonResponseDto> execMail(@RequestBody EmailRequestDto emailRequestDto) throws MessagingException {
         jwtService.isExpireAccessToken();
@@ -41,11 +34,6 @@ public class MailController {
     }
 
     @ApiOperation(value = "이메일 인증하기",notes = "이메일 인증 값 true로 변경하기")
-    @ApiResponses({
-            @ApiResponse(code=200,message = "요청에 성공하였습니다."),
-            @ApiResponse(code=401,message = "JWT를 입력해주세요."),
-            @ApiResponse(code=402,message = "유효하지 않은 JWT입니다."),
-    })
     @RequestMapping(value = "/email/certify",method = RequestMethod.POST)
     public ResponseEntity<CommonResponseDto> certify() {
         jwtService.isExpireAccessToken();

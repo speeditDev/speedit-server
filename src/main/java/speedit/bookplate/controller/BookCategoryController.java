@@ -14,7 +14,7 @@ import speedit.bookplate.utils.JwtService;
 import java.util.List;
 import java.util.Set;
 
-@Api(tags = {"11.BookCategory"})
+@Api(tags = {"5.BookCategory"})
 @RequiredArgsConstructor
 @RestController
 @RequestMapping
