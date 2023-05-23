@@ -31,18 +31,10 @@ public class BookController {
         return ResponseEntity.ok(searchBooks);
     }
 
-    /*
-    @RequestMapping(value = "/aladin/{itemId}",method = RequestMethod.GET)
-    public ResponseEntity<GetDetailResDto> getAladinBookDetail(@PathVariable Long itemId){
-        jwtService.isExpireAccessToken();
-        return ResponseEntity.ok(bookService.getAladinBookDetail(itemId));
-    }*/
 
     @RequestMapping(value = "/{isbn}",method = RequestMethod.GET)
     public ResponseEntity<BookDetailResDto> getBookDetail(@PathVariable Long isbn){
-        System.out.println(isbn);
-        long userIdx = 1l;
-        //long userIdx = jwtService.getUserIdx();
+        long userIdx = jwtService.getUserIdx();
         return ResponseEntity.ok(bookService.getBookDetail(isbn,userIdx));
     }
 

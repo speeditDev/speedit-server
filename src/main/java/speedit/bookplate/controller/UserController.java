@@ -98,9 +98,8 @@ public class UserController {
         if(jwtService.isExpireRefreshToken()) {
             throw new ExpireTokenException();
         }
-        Long userIdx = jwtService.getUserIdxUsingRefreshToken();
 
-        return ResponseEntity.ok(new UserLoginResponse(jwtService.createAccessToken(userIdx),jwtService.createRefreshToken(userIdx)));
+        return ResponseEntity.ok(userService.checkRefreshToken(jwtService.getRefreshToken()));
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.GET)

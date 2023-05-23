@@ -142,5 +142,23 @@ public class UserService {
                 .collect(Collectors.toList());
     }*/
 
+    public UserLoginResponse checkRefreshToken(String refreshToken){
+        jwtService.isExpireRefreshToken();
+
+        Long userIdx = jwtService.getUserIdxUsingRefreshToken();
+        User user = userRepository.findById(userIdx).get();
+        String redisRefreshToken = redisFactory.getRedisRefreshToken(user.getNickname());
+        if(redisRefreshToken!=refreshToken){
+            throw new ExpireTokenException();
+        }
+
+        String newAccessToken = jwtService.createAccessToken(userIdx);
+        String newRefreshToken = jwtService.createRefreshToken(userIdx);
+        UserLoginResponse userLoginResponse = new UserLoginResponse(newAccessToken,newRefreshToken);
+
+        redisFactory.deleteRedisRefreshToken(user.getNickname());
+        redisFactory.setRedisRefreshToken(user.getNickname(),newRefreshToken);
+        return userLoginResponse;
+    }
 
 }

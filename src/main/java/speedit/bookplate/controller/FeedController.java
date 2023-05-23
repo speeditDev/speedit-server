@@ -57,7 +57,7 @@ public class FeedController {
                 throw new NotExistCodeException();
             }
 
-            //jwtService.isExpireAccessToken();
+            jwtService.isExpireAccessToken();
             long userIdx = 3L;
 
             return ResponseEntity.ok().body(feedService.getFeed(userIdx,category,code,job,page));
