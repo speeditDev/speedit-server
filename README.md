@@ -27,7 +27,7 @@
 
 ## :page_facing_up: 기술 스택  
 
-`spring boot 2.7`, `Java 8`  
+`spring boot 2.7`, `Java 11`  
 `Mysql 8.0`,`Spring Data JPA`  
 `Jenkins`, `Github action`  
 `Docker`, `Docker hub`   
@@ -43,7 +43,7 @@
 ## :heavy_check_mark: 개발 환경    
 
 - backend
-  - java 8  
+  - java 11
   - gradle  
   - spring boot 2.7    
 
