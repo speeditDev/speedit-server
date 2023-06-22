@@ -10,6 +10,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableFeignClients
 public class BookplateApplication {
 
+
+
+
+	//깃 크라켄 테스트하기
+
 	public static void main(String[] args) {
 		SpringApplication.run(BookplateApplication.class, args);
 	}
