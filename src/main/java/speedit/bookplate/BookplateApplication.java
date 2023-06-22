@@ -10,8 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableFeignClients
 public class BookplateApplication {
 
-
-
+	//eunyoung
 
 	//깃 크라켄 테스트하기
 
